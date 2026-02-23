@@ -5,6 +5,22 @@
 - [ ] **Breadcrumbs**: Extend Flow breadcrumbs to standard Posts and Books.
 - [ ] **Dynamic OG**: Generate automated social cards with Satori for every post.
 - [ ] **PWA Support**: Add manifest and service worker for offline reading.
+- [ ] **SEO Boost**: Implement JSON-LD structured data for Articles, Books, and Breadcrumbs.
+
+## 🌿 Digital Garden Evolution
+- [ ] **Knowledge Graph**: 
+  - [ ] Interactive fullscreen mode for the graph.
+  - [ ] Filter graph by tags or content types.
+  - [ ] "Local Graph" view in the sidebar of individual notes.
+- [ ] **Discovery**: 
+  - [ ] "On this day" section for Flows (history from previous years).
+  - [ ] RSS/Atom feeds for specific categories or tags.
+- [ ] **Notes**: Support for un-linked mentions (searching for note titles in plain text).
+
+## 🛠 Tooling & Maintenance
+- [ ] **Link Validator**: Script to check for broken internal wiki-links and external URLs.
+- [ ] **Content Porter**: Tool to import/export notes from Obsidian or Notion.
+- [ ] **Optimization**: Automatically compress and resize co-located images during build.
 
 ## ✅ Completed Highlights
 - [x] **Digital Garden**: Notes, Wiki-links, Backlinks, and interactive Knowledge Graph.

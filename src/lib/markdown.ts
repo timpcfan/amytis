@@ -1347,8 +1347,8 @@ function extractWikilinkContext(text: string, matchStart: number, matchEnd: numb
   // Replace wikilinks in context with just display text for readability
   ctx = ctx.replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, (_, slug, display) => display || slug);
 
-  if (start > 0) ctx = ctx.replace(/^[^\s.!?]*/, '').trimStart();
-  if (end < text.length) ctx = ctx.replace(/[^\s.!?]*$/, '').trimEnd();
+  if (start > 0) ctx = ctx.replace(/^[^\s.!?]{1,30}/, '').trimStart();
+  if (end < text.length) ctx = ctx.replace(/[^\s.!?]{1,30}$/, '').trimEnd();
 
   return ctx.trim().slice(0, 200);
 }

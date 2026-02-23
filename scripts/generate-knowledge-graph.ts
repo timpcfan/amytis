@@ -138,6 +138,16 @@ async function main() {
   const validIds = new Set(nodes.map(n => n.id));
   const validEdges = edges.filter(e => validIds.has(e.source) && validIds.has(e.target));
 
+  // Recompute connection counts from validEdges only (pre-filter counts were inflated)
+  const connectionCounts = new Map<string, number>();
+  for (const edge of validEdges) {
+    connectionCounts.set(edge.source, (connectionCounts.get(edge.source) ?? 0) + 1);
+    connectionCounts.set(edge.target, (connectionCounts.get(edge.target) ?? 0) + 1);
+  }
+  for (const node of nodes) {
+    node.connections = connectionCounts.get(node.id) ?? 0;
+  }
+
   const graphData = { nodes, edges: validEdges };
 
   const outputPath = path.join(process.cwd(), 'public', 'knowledge-graph.json');

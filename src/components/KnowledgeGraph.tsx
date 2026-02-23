@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import * as d3 from 'd3';
 
 // Reactive mobile detection via useSyncExternalStore (avoids setState-in-effect lint rule)
@@ -268,7 +269,7 @@ export default function KnowledgeGraph() {
         />
         <div className="space-y-1">
           {filtered.map(n => (
-            <a
+            <Link
               key={n.id}
               href={n.url}
               className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-muted/5 no-underline text-sm text-foreground"
@@ -279,7 +280,7 @@ export default function KnowledgeGraph() {
               />
               <span className="flex-1 truncate">{n.title}</span>
               <span className="text-xs text-muted">{n.type}</span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

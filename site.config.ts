@@ -25,7 +25,7 @@ export const siteConfig = {
 
   // ── Site identity ─────────────────────────────────────────────────────────
   title: { en: "Amytis", zh: "Amytis" },
-  description: { en: "A minimalist digital garden for growing thoughts and sharing knowledge.", zh: "一个极简的数字花园，用于培育思想和分享知识。" },
+  description: { en: "Amytis — an open-source Next.js 15 framework for building your digital garden, with posts, series, books, notes, knowledge graph, and full-text search.", zh: "Amytis — 开源 Next.js 15 数字花园框架，内置文章、系列、书籍、随笔、知识图谱和全文搜索。" },
   baseUrl: "https://example.com", // Replace with your actual domain
   ogImage: "/og-image.png", // Default OG/social preview image — place a 1200×630 PNG at public/og-image.png
   footerText: { en: `© ${new Date().getFullYear()} Amytis. All rights reserved.`, zh: `© ${new Date().getFullYear()} Amytis. 保留所有权利。` },
@@ -116,9 +116,9 @@ export const siteConfig = {
 
   // ── Homepage ──────────────────────────────────────────────────────────────
   hero: {
-    tagline: { en: "Digital Garden", zh: "数字花园" },
-    title: { en: "Cultivating Digital Knowledge", zh: "培育数字知识" },
-    subtitle: { en: "A minimalist digital garden for growing thoughts and sharing knowledge.", zh: "一个极简的数字花园，用于培育思想和分享知识。" },
+    tagline: { en: "Open Source Digital Garden", zh: "开源数字花园框架" },
+    title: { en: "A home for ideas to grow, link, and evolve.", zh: "让想法生长、关联、演化的地方。" },
+    subtitle: { en: "Amytis is a Next.js 15 framework for your personal knowledge space — posts, series, books, notes, knowledge graph, and full-text search. Open source and ready to fork.", zh: "Amytis 是一个开源的 Next.js 15 数字花园框架，内置文章、系列、书籍、随笔、知识图谱和全文搜索，开箱即用，随时 fork。" },
   },
   homepage: {
     sections: [

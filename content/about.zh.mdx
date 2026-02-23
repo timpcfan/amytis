@@ -1,21 +1,60 @@
 ---
 title: "关于 Amytis"
 date: "2026-01-07"
-excerpt: "了解这座数字花园背后的理念与技术。"
+excerpt: "Amytis 是一个开源的 Next.js 数字花园框架，内置文章、系列、书籍、随笔、知识图谱和全文搜索。"
 layout: "simple"
+toc: true
 ---
 
-Amytis 是一座为长期思想培育而设计的数字花园。与博客不同，数字花园是一个持续演化的想法网络。
+# Amytis 是什么？
+
+**Amytis** 是一个用于构建个人数字花园的开源框架。数字花园是一个随时间生长与关联的知识空间，不同于传统博客，它是一个处于不同成熟阶段的写作网络：粗糙的笔记、精炼的文章，以及两者之间的一切。
+
+本站是 Amytis 的在线演示。你所看到的一切——文章、系列、书籍、随笔、知识图谱和全文搜索——均由该框架驱动。
+
+**[在 GitHub 上查看源码 →](https://github.com/hutusi/amytis)**
+
+## 功能特性
+
+- **文章与系列** — 长篇写作，整理为有序的精选合集
+- **书籍** — 多章节内容，支持章节分组与导航
+- **随笔** — 日常笔记，含日历侧边栏、年月浏览和标签筛选
+- **知识库** — 原子笔记，支持 `[[双向链接]]` 和反向链接面板
+- **知识图谱** — 基于 D3 的力导向图，可视化所有内容的连接关系
+- **全文搜索** — 由 Pagefind 驱动，支持类型过滤、最近搜索和键盘导航
+- **目录导航** — 滚动感知的阅读进度指示器
+- **多语言（i18n）** — 内置中英文支持，易于扩展
+- **主题色** — 四种配色方案：默认、蓝色、玫瑰、琥珀
+- **评论系统** — 支持 Giscus 或 Disqus
+- **数据统计** — 支持 Umami、Plausible 或 Google Analytics
+- **RSS 订阅** — 根据内容自动生成
 
 ## 技术栈
 
-- **Next.js 15+** — 基础框架
-- **Tailwind CSS v4** — 样式系统
-- **MDX** — 支持 React 组件的富内容格式
-- **Bun** — 极速开发体验
+- **[Next.js 15+](https://nextjs.org)** — App Router、静态导出、`generateStaticParams`
+- **[React 19](https://react.dev)** — Server Components，兼容 React Compiler
+- **[Tailwind CSS v4](https://tailwindcss.com)** — CSS 变量，主题设计令牌
+- **[MDX](https://mdxjs.com)** — 支持 React 组件的 Markdown，remark/rehype 插件链路
+- **[Bun](https://bun.sh)** — 高速包管理器与运行时
+- **[Pagefind](https://pagefind.app)** — 静态全文搜索，无需服务端
+- **[D3.js](https://d3js.org)** — 知识图谱可视化
+- **[KaTeX](https://katex.org)** — LaTeX 数学公式渲染
 
-## 理念
+## 设计理念
 
-我们相信**公开学习**的力量。这里是种下种子（初始笔记）、悉心耕耘（提炼与关联）、最终长成长青文章的地方。
+**内容优先，配置从简。** 将 MDX 文件放入 `content/posts/` 即成为文章。系列、书籍、笔记和随笔遵循同样的模式——无需数据库、无需 CMS、无需超出 Next.js 原生能力的构建魔法。
 
-> "花园是最好的老师。它教人耐心与细心观察，教人勤劳与节俭，尤其教人全然的信任。" — Gertrude Jekyll
+**按需取用，不多不少。** 所有功能均可在 `site.config.ts` 中关闭。不需要书籍？不需要知识图谱？它们将不会渲染，也不会生成路由。
+
+**纯文本，永久可用。** 所有内容以 Markdown 或 MDX 文件存储——可版本控制、可迁移、编辑器无关。你的写作属于你。
+
+## 快速开始
+
+```bash
+git clone https://github.com/hutusi/amytis my-garden
+cd my-garden
+bun install
+bun dev
+```
+
+编辑 `site.config.ts` 设置标题、导航和功能开关，将内容添加到 `content/posts/`。访问 [GitHub 仓库](https://github.com/hutusi/amytis) 获取完整文档和配置说明。

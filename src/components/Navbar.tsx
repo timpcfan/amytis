@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { siteConfig } from '../../site.config';
+import type { NavChildItem } from '../../site.config';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitch from './LanguageSwitch';
 import Search from '@/components/Search';
@@ -200,6 +201,46 @@ export default function Navbar({ seriesList = [], booksList = [] }: NavbarProps)
                 );
               }
 
+              // Static children dropdown (e.g., "More")
+              if (item.children && item.children.length > 0) {
+                const childActive = item.children.some(c => c.url && pathname.startsWith(c.url));
+                return (
+                  <div key={item.url || item.name} className="relative group">
+                    <button
+                      type="button"
+                      className={`text-sm font-sans font-medium transition-colors duration-200 flex items-center gap-1 py-4 bg-transparent border-0 cursor-pointer ${
+                        childActive ? 'text-accent' : 'text-foreground/80 hover:text-heading'
+                      }`}
+                    >
+                      {getLabel(item.name, item.url)}
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-50 group-hover:rotate-180 transition-transform">
+                        <path d="M6 9l6 6 6-6"/>
+                      </svg>
+                    </button>
+                    <div className="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[160px]">
+                      <div className="bg-background/95 backdrop-blur-md border border-muted/10 rounded-xl shadow-xl p-2 flex flex-col gap-1 animate-slide-down">
+                        {item.children.map((child: NavChildItem) => {
+                          const ChildComp = child.external ? 'a' : Link;
+                          const childProps = child.external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+                          return (
+                            <Fragment key={child.url}>
+                              {child.dividerBefore && <div className="h-px bg-muted/10 my-1" />}
+                              <ChildComp
+                                href={child.url}
+                                {...childProps}
+                                className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-accent hover:bg-muted/5 rounded-lg transition-colors no-underline whitespace-nowrap"
+                              >
+                                {getLabel(child.name, child.url)}
+                              </ChildComp>
+                            </Fragment>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Component
                   key={item.url}
@@ -365,6 +406,51 @@ export default function Navbar({ seriesList = [], booksList = [] }: NavbarProps)
                           >
                             {t('all_books')} →
                           </Link>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                // Static children accordion for mobile (e.g., "More")
+                if (item.children && item.children.length > 0) {
+                  const dropdownKey = item.url || item.name;
+                  const isOpen = openDropdown === dropdownKey;
+                  const childActive = item.children.some(c => c.url && pathname.startsWith(c.url));
+                  return (
+                    <div key={dropdownKey}>
+                      <button
+                        type="button"
+                        className={`w-full flex items-center justify-between px-3 py-3 text-base font-sans font-medium rounded-lg transition-colors ${
+                          childActive ? 'text-accent' : 'text-foreground/80 hover:text-accent hover:bg-muted/5'
+                        }`}
+                        onClick={() => setOpenDropdown(isOpen ? null : dropdownKey)}
+                        aria-expanded={isOpen}
+                      >
+                        {getLabel(item.name, item.url)}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
+                          <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                      </button>
+                      {isOpen && (
+                        <div className="ml-4 pl-3 border-l-2 border-muted/10 flex flex-col gap-1 mb-1">
+                          {item.children.map((child: NavChildItem) => {
+                            const ChildComp = child.external ? 'a' : Link;
+                            const childProps = child.external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+                            return (
+                              <Fragment key={child.url}>
+                                {child.dividerBefore && <div className="h-px bg-muted/10 my-1" />}
+                                <ChildComp
+                                  href={child.url}
+                                  {...childProps}
+                                  className="block px-3 py-2 text-sm text-foreground/80 hover:text-accent hover:bg-muted/5 rounded-lg no-underline transition-colors"
+                                  onClick={() => closeMenu()}
+                                >
+                                  {getLabel(child.name, child.url)}
+                                </ChildComp>
+                              </Fragment>
+                            );
+                          })}
                         </div>
                       )}
                     </div>

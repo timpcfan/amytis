@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2026-02-24
+
+### Added
+- **Digital Garden Foundation**: Introduced **Notes** (`content/notes/`) as atomic, evergreen units of knowledge.
+- **Interconnected Knowledge**:
+  - **Wiki-links**: Native support for `[[Slug]]` and `[[Slug|Display]]` bidirectional linking across all content types.
+  - **Backlinks**: Automated "Linked References" display with context snippets for every note.
+  - **Knowledge Graph**: Interactive, visual network map of the entire digital garden at `/graph`.
+- **Advanced Navigation**:
+  - **'More' Dropdown**: Configurable navbar menu for static child links (Archive, Tags, Links).
+  - **Scroll-aware UI**: Navbar now features scroll-triggered transparency and glassmorphism effects.
+  - **Active Route Tracking**: Visual indicators for currently active navigation paths.
+  - **Mobile Sub-groups**: Grouped navigation links in the mobile drawer for better information hierarchy.
+
+### Changed
+- **Content Experience**: Removed titles from daily Flows for a more immersive, journal-like journal experience.
+- **Layout Evolution**:
+  - Promoted `FlowHubTabs` to a primary page heading for easier navigation between Flows, Notes, and Graph.
+  - Moved note backlinks and breadcrumbs to the left sidebar for a cleaner, more aligned reading view.
+- **Improved Excerpts**: Refined logic to preserve content within inline code blocks during excerpt generation.
+
+### Fixed
+- **Navbar Stability**: Resolved a flash of transparency on initial mount by initializing scroll state correctly.
+- **Visual Distinction**: Added subtle bracket decorations and consistent hover states for wiki-links.
+- **Static Export**: Fixed handling of empty notes and trailing slashes in active state detection.
+
 ## [1.7.0] - 2026-02-21
 
 ### Added

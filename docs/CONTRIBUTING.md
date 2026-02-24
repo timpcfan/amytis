@@ -43,6 +43,7 @@ Books are manually structured in `content/books/`.
 1. Create a folder: `content/books/my-book/`
 2. Add `index.mdx` with metadata and chapters configuration.
 3. Create the chapter files (`welcome.mdx`, `conclusion.mdx`) in the same folder.
+4. Run `bun update-book my-book` to automatically sync the `chapters` list in `index.mdx` with your files.
 
 ### Creating Notes (Digital Garden)
 

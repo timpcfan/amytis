@@ -8,6 +8,7 @@ import PageHeader from '@/components/PageHeader';
 import FlowContent from '@/components/FlowContent';
 
 export function generateStaticParams() {
+  if (siteConfig.features?.flow?.enabled === false) return [{ year: '_' }];
   const allFlows = getAllFlows();
   const years = new Set(allFlows.map(f => f.slug.split('/')[0]));
   return Array.from(years).map(year => ({ year }));
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ year: str
 }
 
 export default async function FlowsYearPage({ params }: { params: Promise<{ year: string }> }) {
+  if (siteConfig.features?.flow?.enabled === false) notFound();
   const { year } = await params;
   const flows = getFlowsByYear(year);
   if (flows.length === 0) notFound();

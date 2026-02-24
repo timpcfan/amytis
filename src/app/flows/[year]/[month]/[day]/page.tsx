@@ -10,6 +10,7 @@ import ShareBar from '@/components/ShareBar';
 import Link from 'next/link';
 
 export function generateStaticParams() {
+  if (siteConfig.features?.flow?.enabled === false) return [{ year: '_', month: '_', day: '_' }];
   const allFlows = getAllFlows();
   return allFlows.map(flow => {
     const [year, month, day] = flow.slug.split('/');
@@ -43,6 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ year: str
 }
 
 export default async function FlowPage({ params }: { params: Promise<{ year: string; month: string; day: string }> }) {
+  if (siteConfig.features?.flow?.enabled === false) notFound();
   const { year, month, day } = await params;
   const slug = `${year}/${month}/${day}`;
   const flow = getFlowBySlug(slug);

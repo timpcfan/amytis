@@ -8,6 +8,7 @@ import PageHeader from '@/components/PageHeader';
 import FlowContent from '@/components/FlowContent';
 
 export function generateStaticParams() {
+  if (siteConfig.features?.flow?.enabled === false) return [{ year: '_', month: '_' }];
   const allFlows = getAllFlows();
   const monthSet = new Set(allFlows.map(f => {
     const [year, month] = f.slug.split('/');
@@ -30,6 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ year: str
 }
 
 export default async function FlowsMonthPage({ params }: { params: Promise<{ year: string; month: string }> }) {
+  if (siteConfig.features?.flow?.enabled === false) notFound();
   const { year, month } = await params;
   const flows = getFlowsByMonth(year, month);
   if (flows.length === 0) notFound();

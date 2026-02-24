@@ -9,6 +9,7 @@ import { t, resolveLocale } from '@/lib/i18n';
 
 export async function generateStaticParams() {
   const books = getAllBooks();
+  if (books.length === 0) return [{ slug: '_' }];
   return books.map(book => ({ slug: book.slug }));
 }
 

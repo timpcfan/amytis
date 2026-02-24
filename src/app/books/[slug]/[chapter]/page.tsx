@@ -7,6 +7,7 @@ import { resolveLocale } from '@/lib/i18n';
 
 export async function generateStaticParams() {
   const books = getAllBooks();
+  if (books.length === 0) return [{ slug: '_', chapter: '_' }];
   const params: { slug: string; chapter: string }[] = [];
 
   for (const book of books) {

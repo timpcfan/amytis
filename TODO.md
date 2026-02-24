@@ -26,7 +26,7 @@
 - [x] **Digital Garden**: Notes, Wiki-links, Backlinks, and interactive Knowledge Graph.
 - [x] **Pagefind Search**: High-performance static full-text indexing with rich UI.
 - [x] **Smart Navigation**: Persistent "Previous" and "Next" article links on all posts.
-- [x] **Multi-format Content**: Native support for **Posts**, **Series**, **Books**, and **Flows**.
+- [x] **Multi-format Content**: Native support for **Posts**, **Series**, **Books**, **Flows**, and **Notes**.
 - [x] **Professional Publishing**: Scoped `@hutusi/amytis` package with OIDC Trusted Publishing.
 - [x] **Robust Engineering**: Zero hydration mismatches, Zod validation, and 64+ automated tests.
 - [x] **Refined UI**: High-contrast typography, four color palettes, and horizontal scroll featured sections.

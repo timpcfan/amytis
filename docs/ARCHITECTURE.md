@@ -13,15 +13,16 @@ Amytis is a static site generator built with **Next.js 16 (App Router)**, design
 
 ## Data Flow
 
-1. **Source:** Content lives in `content/posts/`, `content/series/`, `content/books/`, and `content/flows/`.
+1. **Source:** Content lives in `content/posts/`, `content/series/`, `content/books/`, `content/flows/`, and `content/notes/`.
 2. **Parsing:** `src/lib/markdown.ts` reads the file system using Node.js `fs`. It uses `gray-matter` to parse frontmatter, `zod` to validate the schema, and `image-size` to extract image dimensions.
 3. **Filtering:** Draft content (`draft: true`) is excluded in production. Future-dated posts are hidden unless `showFuturePosts` is enabled.
 4. **Rendering:**
-   - **Lists:** `getAllPosts()` / `getAllBooks()` / `getAllFlows()` returns sorted metadata for listing pages.
-   - **Single Post/Book:** `getPostBySlug(slug)` / `getBookData(slug)` reads a specific file with full content.
+   - **Lists:** `getAllPosts()` / `getAllBooks()` / `getAllFlows()` / `getAllNotes()` returns sorted metadata for listing pages.
+   - **Single Item:** `getPostBySlug(slug)` / `getBookData(slug)` / `getNoteBySlug(slug)` reads a specific file with full content.
    - **Series:** `getSeriesPosts(slug)` fetches posts for a series.
    - **Book Chapters:** `getBookChapter(bookSlug, chapterSlug)` fetches individual chapter content.
    - **Flows:** `getFlowBySlug(slug)` fetches individual flow entries.
+   - **Graph:** `buildBacklinkIndex()` generates the connection data for the knowledge graph.
    - **Static Generation:** `generateStaticParams` is implemented in dynamic routes (`[slug]`, `[page]`, `[tag]`, `[author]`, `[year]`) to pre-render all pages at build time.
 
 ## Route Structure
@@ -47,7 +48,7 @@ src/app/
     page.tsx                        # Knowledge graph visualization
   flows/
     page.tsx                        # Flows stream/listing
-    [year]/[month]/[day]/page.tsx   # Individual flow entry (optional if modal/stream used)
+    [year]/[month]/[day]/page.tsx   # Individual flow entry
   tags/
     page.tsx                        # Tag cloud
     [tag]/page.tsx                  # Posts by tag
@@ -79,6 +80,8 @@ src/app/
 - **`CoverImage`** - Optimized image component using `next-image-export-optimizer` with dynamic desaturated gradients.
 - **`ShareBar`** - Social sharing buttons for posts and books.
 - **`TagContentTabs`** - Tabbed interface for filtering posts vs flows by tag.
+- **`KnowledgeGraph`** - Interactive D3.js visualization of note connections.
+- **`Backlinks`** - Component to display "Linked References" at the bottom of notes.
 
 ### Content Rendering
 - **`MarkdownRenderer`** - Core rendering component using `react-markdown` with plugins (GFM, Math, Raw HTML).
@@ -99,13 +102,13 @@ src/app/
 | `getAllPosts()` | `PostData[]` | All posts, filtered and sorted |
 | `getAllFlows()` | `FlowData[]` | All daily notes, sorted by date |
 | `getAllBooks()` | `BookData[]` | All books metadata |
+| `getAllNotes()` | `NoteData[]` | All notes, sorted by date |
 | `getBookData(slug)` | `BookData \| null` | Single book metadata & TOC |
 | `getBookChapter(...)` | `BookChapterData` | Single chapter content |
-| `getAllNotes()` | `NoteData[]` | All notes, sorted by date |
-| `getNoteBySlug(slug)` | `NoteData \| null` | Single note content |
-| `getBacklinks(slug)` | `BacklinkSource[]` | Inbound links for a page |
 | `getFlowBySlug(slug)` | `FlowData \| null` | Single flow entry |
+| `getNoteBySlug(slug)` | `NoteData \| null` | Single note content |
 | `getSeriesPosts(slug)` | `PostData[]` | Posts in a series |
+| `getBacklinks(slug)` | `BacklinkSource[]` | Inbound links for a page |
 | `calculateReadingTime(content)` | `string` | Estimated reading time (multilingual) |
 
 ## Theming
@@ -114,7 +117,8 @@ Theming is handled by `next-themes` and Tailwind CSS v4. `src/app/globals.css` d
 
 ## Build Pipeline
 
-1. **`scripts/copy-assets.ts`** - Copies images from content directories (`posts/`, `series/`, `books/`, `flows/`) to `public/posts/` for static hosting.
-2. **`next build`** - Next.js static export to `out/`.
-3. **`next-image-export-optimizer`** - Generates optimized WebP variants (production build only).
-4. **`pagefind --site out`** - Crawls the exported HTML and builds a full-text search index in `out/pagefind/`. The index is loaded at runtime by `src/components/Search.tsx` via a dynamic import. Pure utility functions used by the search component and the search index route live in `src/lib/search-utils.ts`.
+1. **`scripts/copy-assets.ts`** - Copies images from content directories (`posts/`, `series/`, `books/`, `flows/`, `notes/`) to `public/posts/` for static hosting.
+2. **`bun run build:graph`** - Generates `public/knowledge-graph.json` from the content.
+3. **`next build`** - Next.js static export to `out/`.
+4. **`next-image-export-optimizer`** - Generates optimized WebP variants (production only).
+5. **`pagefind --site out`** - Crawls the exported HTML and builds a full-text search index in `out/pagefind/`.

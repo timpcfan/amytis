@@ -31,6 +31,7 @@ Generates a fully optimized static site in the `out/` directory with Pagefind se
 ```bash
 bun run lint
 bun test
+bun run validate  # Run lint, test, and build in one go
 ```
 
 ## Project Structure
@@ -38,18 +39,19 @@ bun test
   - `page.tsx`: Homepage with horizontal scrolling featured sections and latest timeline.
   - `posts/`: Paginated post listing and individual post routes.
   - `flows/`: Stream-style daily notes or micro-blogging (`[year]/[month]/[day]`).
+  - `notes/`: Digital garden notes (`/notes`).
+  - `graph/`: Interactive knowledge graph (`/graph`).
   - `series/`: Series overview and individual series catalog pages with pagination support.
   - `books/`: Books overview and individual book/chapter pages (`[slug]/[chapter]`).
   - `archive/`: Timeline-based chronological archive grouped by year and month.
   - `tags/`: Popularity-sorted tag cloud and filtered listings.
   - `authors/`: Posts filtered by individual authors.
   - `subscribe/`: Subscription options (RSS, Newsletter, Social).
-  - `search.json/`: Static search index generator (supplementary).
 - `src/lib/`: Core logic and utilities.
-  - `markdown.ts`: Advanced parsing for posts/series/flows, sorting, and metadata.
+  - `markdown.ts`: Advanced parsing for posts/series/flows/notes, sorting, reading time calculation, and metadata inheritance.
   - `search-utils.ts`: Content cleaning and search result processing.
   - `shuffle.ts`: Deterministic and random array shuffling.
-- `src/components/`: Modular UI blocks (Hero, HorizontalScroll, Search, CoverImage, ShareBar, etc.).
+- `src/components/`: Modular UI blocks (Hero, HorizontalScroll, Search, CoverImage, ShareBar, KnowledgeGraph, etc.).
 - `content/`: Source Markdown/MDX content.
 - `scripts/`: CLI tools for content management and asset processing.
 
@@ -58,17 +60,18 @@ bun test
 ### Advanced Content Management
 - **Posts**: Supports both flat files (`.mdx`) and nested folders (`/index.mdx`) with co-located assets.
 - **Flows**: Daily notes or micro-posts organized by date (`YYYY/MM/DD`). Designed for quick thoughts and stream-of-consciousness updates.
+- **Notes**: Atomic, evergreen notes for personal knowledge management (`content/notes/`).
 - **Series**: 
   - Robust grouping with folder-based or file-based entries.
   - Configurable sorting: `date-asc`, `date-desc`, or `manual` (explicit list of slugs).
   - Cross-referencing: Series can include posts from the general pool or other folders.
   - Metadata inheritance: Posts can inherit attributes (like authors) from series index files.
+- **Books**: Structured long-form content with explicit chapters, parts, and a dedicated reading interface.
 - **Featured Content**: Mark posts or series as `featured` to display them in prominent homepage sections with horizontal scrolling.
 - **Cover Images**: Support for local paths, external URLs, and dynamic desaturated gradients (`text:Label`).
 - **External Links**: Posts can include a list of curated external resources in frontmatter.
 
 ### Digital Garden Features
-- **Notes**: Atomic, evergreen notes for personal knowledge management (`content/notes/`).
 - **Wiki-links**: Bidirectional linking using `[[Slug]]` syntax across all content types.
 - **Backlinks**: Automatic display of "Linked References" with context snippets.
 - **Knowledge Graph**: Interactive visualization of content relationships at `/graph`.
@@ -85,6 +88,7 @@ bun test
 - **Search Indexing**: `Pagefind` runs after build to generate a static search index from the output directory.
 
 ## Recent Updates
+- Added **Notes** and **Knowledge Graph** features: comprehensive digital garden capabilities.
 - Added **Flows** feature: a stream for daily notes and micro-blogging.
 - Upgraded to Next.js 16.1.1 and React 19.
 - Implemented robust series sorting and manual selection logic.

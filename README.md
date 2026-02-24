@@ -8,7 +8,7 @@
 
 ## Features
 
-- **Digital Garden Philosophy:** Non-linear navigation through tags, series, authors, books, flows, and chronological archives.
+- **Digital Garden Philosophy:** Non-linear navigation through tags, series, authors, books, flows, notes, and chronological archives.
 - **Interconnected Knowledge:**
   - **Wiki-links:** Bidirectional linking (`[[Slug]]`) between all content types.
   - **Backlinks:** Automatic "Linked References" display on notes.
@@ -36,7 +36,7 @@
   - Flat files (`post.mdx`) or nested folders (`post/index.mdx`).
   - Co-located assets: keep images inside post folders (`./images/`).
   - Date-prefixed filenames: `2026-01-01-my-post.mdx`.
-  - Draft support for posts, series, books, and flows.
+  - Draft support for posts, series, books, flows, and notes.
 - **Performance & SEO:**
   - Fully static export with optimized WebP images.
   - Native sitemap and RSS feed generation.
@@ -78,10 +78,11 @@
 # Development
 bun dev                    # Start dev server at localhost:3000
 bun run lint               # Run ESLint
+bun run validate           # Run lint, test, and build
 
 # Build
-bun run build              # Full production build (copy assets + Next.js build + image optimization)
-bun run build:dev          # Development build (no image optimization, faster)
+bun run build              # Full production build (assets + Next.js + image opt + Pagefind)
+bun run build:dev          # Development build (no image opt, faster Pagefind)
 bun run clean              # Remove .next, out, public/posts directories
 
 # Testing
@@ -98,6 +99,8 @@ bun run new "Title" --template custom             # Use custom template from tem
 bun run new "Title" --md                          # Create as .md instead of .mdx
 bun run new "Title" --series my-series            # Create post in a series directory
 bun run new-series "Series Name"                  # Create new series with cover image placeholder
+bun run new-flow                                  # Create a new daily flow
+bun run new-note "Note Title"                     # Create a new digital garden note
 bun run new-from-pdf doc.pdf                      # Create post from PDF (converts pages to images)
 bun run new-from-pdf doc.pdf --title "My Doc"     # With custom title
 bun run new-from-pdf doc.pdf --scale 3.0          # Higher resolution (default: 2.0)
@@ -115,16 +118,23 @@ All site settings are managed in `site.config.ts`:
 export const siteConfig = {
   // ...
   nav: [
-    { name: "Home", url: "/", weight: 1 },
-    { name: "Flow", url: "/flows", weight: 1.1 }, // Add Flows to nav
-    { name: "Series", url: "/series", weight: 1.5 },
-    { name: "Books", url: "/books", weight: 1.7 },
-    { name: "Archive", url: "/archive", weight: 2 },
+    { name: "Flow", url: "/flows", weight: 1 },
+    { name: "Posts", url: "/posts", weight: 2 },
+    { name: "Series", url: "/series", weight: 3 },
+    { name: "Books", url: "/books", weight: 4 },
+    { name: "About", url: "/about", weight: 5 },
     // ...
   ],
   // ...
-  flows: {
-    recentCount: 5,
+  features: {
+    notes: {
+      enabled: true,
+      name: { en: "Notes", zh: "笔记" },
+    },
+    graph: {
+      enabled: true,
+      name: { en: "Graph", zh: "知识图谱" },
+    },
   },
 };
 ```

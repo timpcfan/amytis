@@ -1,0 +1,79 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useLanguage } from '@/components/LanguageProvider';
+
+const DISMISSED_KEY = 'browser-warning-dismissed';
+
+function isOutdatedBrowser(): boolean {
+  if (typeof window === 'undefined') return false;
+
+  // Detect Internet Explorer
+  if (/MSIE|Trident/.test(navigator.userAgent)) return true;
+
+  // CSS custom properties (Chrome 49+, Firefox 31+, Safari 9.1+)
+  if (!('CSS' in window) || !CSS.supports('color', 'var(--x)')) return true;
+
+  // IntersectionObserver (Chrome 51+, Firefox 55+, Safari 12.1+)
+  if (!('IntersectionObserver' in window)) return true;
+
+  // fetch (Chrome 42+, Firefox 39+, Safari 10.1+)
+  if (!('fetch' in window)) return true;
+
+  return false;
+}
+
+export default function BrowserDetectionBanner() {
+  const { t } = useLanguage();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem(DISMISSED_KEY)) return;
+    if (isOutdatedBrowser()) setVisible(true);
+  }, []);
+
+  if (!visible) return null;
+
+  const dismiss = () => {
+    localStorage.setItem(DISMISSED_KEY, '1');
+    setVisible(false);
+  };
+
+  return (
+    <div
+      role="alert"
+      className="bg-amber-100 dark:bg-amber-900/40 border-b border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-100 px-4 py-2.5 flex items-center justify-center gap-3 text-sm"
+    >
+      <svg
+        className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fillRule="evenodd"
+          d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
+          clipRule="evenodd"
+        />
+      </svg>
+      <span>{t('browser_outdated')}</span>
+      <a
+        href="https://browsehappy.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline underline-offset-2 font-medium hover:opacity-75 transition-opacity shrink-0"
+      >
+        {t('browser_update')}
+      </a>
+      <button
+        onClick={dismiss}
+        aria-label={t('browser_dismiss')}
+        className="ml-auto p-1 rounded hover:opacity-70 transition-opacity focus-ring shrink-0"
+      >
+        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M4.293 4.293a1 1 0 011.414 0L8 6.586l2.293-2.293a1 1 0 111.414 1.414L9.414 8l2.293 2.293a1 1 0 01-1.414 1.414L8 9.414l-2.293 2.293a1 1 0 01-1.414-1.414L6.586 8 4.293 5.707a1 1 0 010-1.414z" />
+        </svg>
+      </button>
+    </div>
+  );
+}

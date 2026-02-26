@@ -157,6 +157,11 @@ function syncBook(bookSlug: string): void {
   const raw = fs.readFileSync(indexPath, 'utf8');
   const { data, content } = matter(raw);
 
+  if (data.chapters !== undefined && !Array.isArray(data.chapters)) {
+    console.error(`  ✗  ${bookSlug}: "chapters" frontmatter must be an array`);
+    return;
+  }
+
   const discovered  = new Set(discoverIds(bookDir));
   const existingToc = (data.chapters ?? []) as TocItem[];
 
@@ -196,7 +201,7 @@ if (targetSlug) {
   syncBook(targetSlug);
 } else {
   const entries = fs.readdirSync(booksDir, { withFileTypes: true });
-  const books   = entries.filter(e => e.isDirectory());
+  const books   = entries.filter(e => e.isDirectory()).sort((a, b) => a.name.localeCompare(b.name));
   if (books.length === 0) {
     console.log('No books found.');
   } else {

@@ -26,7 +26,12 @@ function subscribe() {
 }
 
 function getSnapshot(): boolean {
-  if (localStorage.getItem(DISMISSED_KEY)) return false;
+  try {
+    if (localStorage.getItem(DISMISSED_KEY)) return false;
+  } catch {
+    // localStorage unavailable (private browsing, sandboxed iframe, etc.)
+    return false;
+  }
   return isOutdatedBrowser();
 }
 
@@ -42,7 +47,11 @@ export default function BrowserDetectionBanner() {
   if (!isOutdated || dismissed) return null;
 
   const dismiss = () => {
-    localStorage.setItem(DISMISSED_KEY, '1');
+    try {
+      localStorage.setItem(DISMISSED_KEY, '1');
+    } catch {
+      // Ignore — dismissal works for current session via state
+    }
     setDismissed(true);
   };
 

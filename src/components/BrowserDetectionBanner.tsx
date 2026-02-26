@@ -1,13 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
 
 const DISMISSED_KEY = 'browser-warning-dismissed';
 
 function isOutdatedBrowser(): boolean {
-  if (typeof window === 'undefined') return false;
-
   // Detect Internet Explorer
   if (/MSIE|Trident/.test(navigator.userAgent)) return true;
 
@@ -23,20 +21,29 @@ function isOutdatedBrowser(): boolean {
   return false;
 }
 
+function subscribe() {
+  return () => {};
+}
+
+function getSnapshot(): boolean {
+  if (localStorage.getItem(DISMISSED_KEY)) return false;
+  return isOutdatedBrowser();
+}
+
+function getServerSnapshot(): boolean {
+  return false;
+}
+
 export default function BrowserDetectionBanner() {
   const { t } = useLanguage();
-  const [visible, setVisible] = useState(false);
+  const isOutdated = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [dismissed, setDismissed] = useState(false);
 
-  useEffect(() => {
-    if (localStorage.getItem(DISMISSED_KEY)) return;
-    if (isOutdatedBrowser()) setVisible(true);
-  }, []);
-
-  if (!visible) return null;
+  if (!isOutdated || dismissed) return null;
 
   const dismiss = () => {
     localStorage.setItem(DISMISSED_KEY, '1');
-    setVisible(false);
+    setDismissed(true);
   };
 
   return (

@@ -6,6 +6,10 @@ import matter from 'gray-matter';
 //   bun run sync-book                    # sync all books
 //   bun run sync-book <book-slug>        # sync one book
 //   bun run sync-book <book-slug> --update-titles  # also refresh titles from files
+//
+// Note: when the file is written, matter.stringify re-serializes all frontmatter fields
+// (e.g. drops explicit quotes on simple strings, normalises indentation). Expect a one-time
+// cosmetic formatting diff the first time you sync a pre-existing book file.
 
 const args = process.argv.slice(2);
 const targetSlug = args.find(a => !a.startsWith('--'));
@@ -158,7 +162,8 @@ function syncBook(bookSlug: string): void {
 
   const { updated, added, removed } = reconcile(existingToc, bookDir, discovered);
 
-  const changed = added.length > 0 || removed.length > 0 || updateTitles;
+  const titlesChanged = updateTitles && JSON.stringify(updated) !== JSON.stringify(existingToc);
+  const changed = added.length > 0 || removed.length > 0 || titlesChanged;
   if (!changed) {
     console.log(`  ✓  ${bookSlug}: up to date (${discovered.size} chapter${discovered.size === 1 ? '' : 's'})`);
     return;
@@ -170,7 +175,7 @@ function syncBook(bookSlug: string): void {
   console.log(`  ✓  ${bookSlug}:`);
   if (added.length   > 0) console.log(`       + added:   ${added.join(', ')}`);
   if (removed.length > 0) console.log(`       - removed: ${removed.join(', ')}`);
-  if (updateTitles)       console.log(`       ↺ titles refreshed from files`);
+  if (titlesChanged)      console.log(`       ↺ titles refreshed from files`);
 }
 
 // ── Entry point ───────────────────────────────────────────────────────────

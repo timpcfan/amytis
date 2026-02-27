@@ -85,12 +85,12 @@ function renderBlock(msg: Message, showUsername: boolean, showTime: boolean): st
   const content = msg.lines.join('\n').trimEnd();
   if (!content.trim()) return ''; // skip empty messages
 
-  const metaParts: string[] = [];
-  if (showUsername) metaParts.push(`— ${msg.username}`);
-  if (showTime) metaParts.push(msg.time);
+  const headerParts: string[] = [];
+  if (showUsername) headerParts.push(`**${msg.username}**`);
+  if (showTime) headerParts.push(msg.time);
 
-  if (metaParts.length === 0) return content;
-  return `${content}\n\n_${metaParts.join(' · ')}_`;
+  if (headerParts.length === 0) return content;
+  return `${headerParts.join(' · ')}\n\n${content}`;
 }
 
 function renderFlow(messages: Message[], showUsername: boolean, showTime: boolean): string {

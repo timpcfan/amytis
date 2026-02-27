@@ -73,20 +73,14 @@ function processChapter(title: string, rawPath: string): ChapterRef | null {
     if (!finalTitle) finalTitle = title;
 
     const chapterData = {
-        title: finalTitle,
         ...data,
+        title: finalTitle,
     };
 
     let fixedBody = body;
     
-    // Fix image paths
-    // The source images are in bookRootDir/images/
-    // The source chapters are in bookRootDir/chapters/
-    // So source links are usually ../images/
-    // We put images in contentDir/images/
-    // We put chapters in contentDir/
-    // So we need to ensure ../images/ becomes ./images/
-    fixedBody = fixedBody.replace(/\.\.\/images\//g, './images/');
+    // Normalize image paths to ./images/ regardless of source prefix (../images/, ./images/, images/)
+    fixedBody = fixedBody.replace(/(?:\.\.\/|\.\/)?images\//g, './images/');
 
     fs.writeFileSync(destPath, matter.stringify(fixedBody, chapterData));
     return { title: chapterData.title, id };

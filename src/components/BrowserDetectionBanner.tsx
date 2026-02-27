@@ -12,10 +12,9 @@ function isOutdatedBrowser(): boolean {
   // CSS custom properties (Chrome 49+, Firefox 31+, Safari 9.1+)
   if (!('CSS' in window) || !CSS.supports('color', 'var(--x)')) return true;
 
-  // CSS cascade layers — required by Tailwind CSS v4 (Chrome 99+, Firefox 97+, Safari 15.4+)
-  if (!CSS.supports('@layer test {}')) return true;
-
   // CSS oklch() — required by Tailwind CSS v4 color system (Chrome 111+, Firefox 113+, Safari 15.4+)
+  // Note: CSS.supports() only handles property-value declarations, not at-rules,
+  // so @layer cannot be tested here. oklch already sets a higher minimum than @layer anyway.
   if (!CSS.supports('color', 'oklch(0.5 0.1 0)')) return true;
 
   return false;

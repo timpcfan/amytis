@@ -586,7 +586,12 @@ export function getPostsByAuthor(author: string): PostData[] {
 
 export function getAuthorSlug(author: string): string {
   const slugger = new GithubSlugger();
-  return slugger.slug(author.trim());
+  // Normalize all Unicode dash punctuation to ASCII hyphen, then trim edges.
+  // This avoids runtime-specific outputs like wrapped dash variants.
+  return slugger
+    .slug(author.trim())
+    .replace(/[\p{Dash_Punctuation}]+/gu, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 export function getAllAuthors(): Record<string, number> {

@@ -14,7 +14,7 @@ export default function LatestWritingSection({ posts, totalCount }: LatestWritin
   const { t, tWith } = useLanguage();
 
   return (
-    <section>
+    <section id="latest-posts">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl font-serif font-bold text-heading">{t('latest_writing')}</h2>
         <Link

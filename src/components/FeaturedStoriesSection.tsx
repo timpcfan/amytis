@@ -39,7 +39,7 @@ export default function FeaturedStoriesSection({ allFeatured, maxItems }: Featur
   const [hero, ...secondary] = displayed;
 
   return (
-    <section className="mb-24">
+    <section id="featured-posts" className="mb-24">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl font-serif font-bold text-heading">{t('featured_articles')}</h2>
         {allFeatured.length > maxItems && (

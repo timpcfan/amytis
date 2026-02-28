@@ -2,6 +2,10 @@
 @import "katex/dist/katex.min.css";
 @plugin "@tailwindcss/typography";
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   /* Warm/Paper-like background for "Elegant" feel */
   --background: #fafaf9; /* Stone 50 */

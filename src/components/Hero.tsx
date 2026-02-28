@@ -22,22 +22,6 @@ interface StatItem {
   label: string;
 }
 
-function StatCard({ href, count, label }: StatItem) {
-  return (
-    <Link
-      href={href}
-      className="group flex flex-col items-center gap-1.5 px-6 py-4 rounded-xl border border-muted/15 bg-muted/5 hover:border-accent/40 hover:bg-accent/5 transition-all duration-200 no-underline"
-    >
-      <span className="text-2xl font-serif font-bold text-heading group-hover:text-accent transition-colors duration-200">
-        {count}
-      </span>
-      <span className="text-xs font-mono uppercase tracking-widest text-muted">
-        {label}
-      </span>
-    </Link>
-  );
-}
-
 export default function Hero({ tagline, title, subtitle, postCount, seriesCount, bookCount, flowCount }: HeroProps) {
   const { language } = useLanguage();
   const resolvedTagline = resolveLocaleValue(tagline, language);
@@ -68,9 +52,15 @@ export default function Hero({ tagline, title, subtitle, postCount, seriesCount,
       </p>
 
       {stats.length > 0 && (
-        <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-lg animate-slide-up animation-delay-200">
-          {stats.map(stat => (
-            <StatCard key={stat.href} {...stat} />
+        <div className="mt-8 flex flex-wrap justify-center items-center gap-x-1 gap-y-2 text-sm font-mono animate-slide-up animation-delay-200">
+          {stats.map((stat, i) => (
+            <span key={stat.href} className="inline-flex items-center gap-1">
+              {i > 0 && <span className="text-muted/30 mx-2" aria-hidden>·</span>}
+              <Link href={stat.href} className="group no-underline">
+                <span className="font-semibold text-heading group-hover:text-accent transition-colors duration-200">{stat.count}</span>
+                <span className="text-muted ml-1 group-hover:text-accent/70 transition-colors duration-200">{stat.label}</span>
+              </Link>
+            </span>
           ))}
         </div>
       )}

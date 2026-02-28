@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] - 2026-02-28
+
+### Added
+- **Book Importer**: Added `bun run import-book` to import GitBook/Markdown-style books into `content/books/` with chapter mapping support.
+- **Flow Chat Import Improvements**: Extended `new-flow-from-chat` with improved formatting and optional timestamp output.
+
+### Changed
+- **Import Reliability**: Hardened `import-book` chapter path and ID handling for mixed source structures.
+
+### Fixed
+- **Author Slug Normalization**: Stabilized `getAuthorSlug` output for bracketed and edge-case names.
+- **Image Path Handling**: Fixed import image-path normalization to correctly handle `../images/`, `./images/`, and `images/` patterns.
+- **Test Consistency**: Aligned static-params mock slug behavior with production logic to avoid CI-only test leakage failures.
+
 ## [1.8.0] - 2026-02-24
 
 ### Added

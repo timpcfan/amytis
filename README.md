@@ -1,10 +1,21 @@
 # Amytis
 
-**Amytis** is a high-performance, elegant digital garden built with Next.js 16, React 19, and Tailwind CSS v4. It is designed for cultivating thoughts, sharing knowledge, and growing ideas with a focus on typography and readability.
+**Amytis** is an elegant, open-source framework for building a personal digital garden: a living knowledge space where ideas grow from raw notes to refined writing. It is built with Next.js 16, React 19, and Tailwind CSS v4, with a strong focus on readability, structure, and long-term content ownership.
 
 [**Live Demo**](https://amytis.vercel.app/)
 
 ![Amytis Screenshot](public/screenshot.png)
+
+## The Knowledge Ladder
+
+Amytis is built around a simple path from rough to refined:
+
+- **Flow**: Capture raw daily thoughts and fragments.
+- **Articles**: Refine one idea into a clear essay.
+- **Series**: Connect related articles into a curated narrative.
+- **Books**: Distill mature knowledge into structured chapters and parts.
+
+Each stage builds on the previous one, so your garden can evolve naturally.
 
 ## Features
 
@@ -48,6 +59,14 @@
 - **Content CLI Tools:** Create posts, series, and import from PDFs or image folders.
 - **Modern Stack:** Next.js 16, React 19, Tailwind CSS v4, TypeScript 5, Bun.
 
+## Design Philosophy
+
+- **Elegance by default**: Typography, spacing, and color should feel intentional out of the box.
+- **Content over configuration**: Writing and publishing should be simple file-based workflows, not CMS-heavy setup.
+- **Markdown-first, not markdown-limited**: Keep authoring portable while supporting rich output (math, diagrams, code, wikilinks).
+- **Ship what you need**: Features are modular through `site.config.ts`; disable sections you do not use.
+- **Plain text, long-term ownership**: Content stays in Markdown/MDX so it remains versionable and portable.
+
 ## Quick Start
 
 1. **Install Dependencies:**
@@ -75,67 +94,47 @@
 ## CLI Commands
 
 ```bash
-# Development
-bun dev                    # Start dev server at localhost:3000
-bun run lint               # Run ESLint
+## Core
+bun dev
+bun run lint
+bun run validate
 
-# Build
-bun run build              # Full production build (copy assets + Next.js build + image optimization)
-bun run build:dev          # Development build (no image optimization, faster)
-bun run clean              # Remove .next, out, public/posts directories
+## Build
+bun run build
+bun run build:dev
+bun run clean
 
-# Testing
-bun test                   # Run all tests
-bun run test:unit          # Run unit tests (src/)
-bun run test:int           # Run integration tests
-bun run test:e2e           # Run end-to-end tests
+## Test
+bun test
+bun run test:unit
+bun run test:int
+bun run test:e2e
 
-# Content creation
-bun run new "Post Title"                          # Create new post (flat file)
-bun run new "Title" --folder                      # Create as folder with index.mdx
-bun run new "Title" --prefix weekly               # Create with prefix (e.g., weekly-title)
-bun run new "Title" --template custom             # Use custom template from templates/
-bun run new "Title" --md                          # Create as .md instead of .mdx
-bun run new "Title" --series my-series            # Create post in a series directory
-bun run new-series "Series Name"                  # Create new series with cover image placeholder
-bun run new-from-pdf doc.pdf                      # Create post from PDF (converts pages to images)
-bun run new-from-pdf doc.pdf --title "My Doc"     # With custom title
-bun run new-from-pdf doc.pdf --scale 3.0          # Higher resolution (default: 2.0)
-bun run new-from-images ./photos                  # Create post from image folder
-bun run new-from-images ./photos --title "Gallery" # With custom title
-bun run new-from-images ./photos --sort date      # Sort by date (default: name)
-bun run new-from-images ./photos --no-copy        # Reference images instead of copying
-bun run new-note "Concept"                        # Create a new atomic note
-bun run new-flow-from-chat                        # Import all new files in imports/chats/
-bun run sync-book                                 # Sync book chapters with files on disk
-bun run series-draft "series-slug"                # Set all posts in a series to draft
-bun run series-draft "series-slug" --undraft      # Remove draft status from series posts
+## Create Content
+bun run new "Post Title"
+bun run new-series "Series Name"
+bun run new-note "Concept"
+bun run new-flow
+
+## Import / Maintain
+bun run new-from-pdf ./doc.pdf
+bun run new-from-images ./photos
+bun run new-flow-from-chat
+bun run import-book
+bun run sync-book
+bun run series-draft "series-slug"
 ```
 
 ### Importing Chat Logs to Flows
 
-Amytis includes a powerful script to convert chat logs (like those from LLMs or messaging apps) into Flow entries.
+Drop `.txt` or `.log` files into `imports/chats/`, then run:
 
-1. Place your `.txt` or `.log` files in `imports/chats/`.
-2. Ensure the format is:
-   ```
-   Author Name YYYY-MM-DD HH:mm:ss
-   Message content line 1
-   Message content line 2
-   ```
-3. Run the importer:
-   ```bash
-   bun run new-flow-from-chat
-   ```
+```bash
+bun run new-flow-from-chat
+```
 
-Options:
-- `--all`: Re-import every file (ignores history).
-- `--dry-run`: Preview changes without writing files.
-- `--author "Name"`: Only include messages from a specific author.
-- `--append`: Append to existing flow files instead of skipping.
-- `--timestamp`: Include timestamps in the rendered blocks.
-
-Import history is tracked in `imports/chats/.imported`.
+Common flags: `--all`, `--dry-run`, `--author "Name"`, `--append`, `--timestamp`.
+Import history is stored in `imports/chats/.imported`.
 
 ## Configuration
 

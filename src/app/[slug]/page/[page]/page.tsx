@@ -36,7 +36,9 @@ export async function generateStaticParams() {
     }
   }
 
-  return params;
+  // Placeholder keeps Next.js happy with output: export when no custom paths configured.
+  // dynamicParams = false ensures any unrecognised slug/page combo returns 404.
+  return params.length > 0 ? params : [{ slug: '_', page: '2' }];
 }
 
 export const dynamicParams = false;

@@ -15,7 +15,7 @@ const POST_PAGE_SIZE = siteConfig.pagination.posts;
 const SERIES_PAGE_SIZE = siteConfig.pagination.series;
 
 export async function generateStaticParams() {
-  const params: { prefix: string; page: string }[] = [];
+  const params: { slug: string; page: string }[] = [];
 
   // Custom posts basePath — paginated listing pages (page 2+)
   const basePath = getPostsBasePath();
@@ -23,7 +23,7 @@ export async function generateStaticParams() {
     const allPosts = getAllPosts();
     const totalPages = Math.ceil(allPosts.length / POST_PAGE_SIZE);
     for (let i = 2; i <= totalPages; i++) {
-      params.push({ prefix: basePath, page: i.toString() });
+      params.push({ slug: basePath, page: i.toString() });
     }
   }
 
@@ -32,7 +32,7 @@ export async function generateStaticParams() {
     const posts = getSeriesPosts(seriesSlug);
     const totalPages = Math.ceil(posts.length / SERIES_PAGE_SIZE);
     for (let i = 2; i <= totalPages; i++) {
-      params.push({ prefix: customPath, page: i.toString() });
+      params.push({ slug: customPath, page: i.toString() });
     }
   }
 
@@ -44,9 +44,9 @@ export const dynamicParams = false;
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ prefix: string; page: string }>;
+  params: Promise<{ slug: string; page: string }>;
 }): Promise<Metadata> {
-  const { prefix, page } = await params;
+  const { slug: prefix, page } = await params;
   const basePath = getPostsBasePath();
   const customPaths = getSeriesCustomPaths();
   const matchedSeriesSlug = Object.entries(customPaths).find(([, path]) => path === prefix)?.[0];
@@ -71,9 +71,9 @@ export async function generateMetadata({
 export default async function PrefixPageRoute({
   params,
 }: {
-  params: Promise<{ prefix: string; page: string }>;
+  params: Promise<{ slug: string; page: string }>;
 }) {
-  const { prefix, page: pageStr } = await params;
+  const { slug: prefix, page: pageStr } = await params;
   const page = parseInt(pageStr);
 
   if (isNaN(page) || page < 2) notFound();

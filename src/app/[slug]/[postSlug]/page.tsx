@@ -26,18 +26,18 @@ function resolvePostFromParam(rawSlug: string) {
 }
 
 export async function generateStaticParams() {
-  const params: { prefix: string; slug: string }[] = [];
+  const params: { slug: string; postSlug: string }[] = [];
 
   // Custom posts basePath — all posts served at /[basePath]/[slug]
   const basePath = getPostsBasePath();
   if (basePath !== 'posts') {
-    getAllPosts().forEach(post => params.push({ prefix: basePath, slug: post.slug }));
+    getAllPosts().forEach(post => params.push({ slug: basePath, postSlug: post.slug }));
   }
 
   // Series custom paths — only posts belonging to that series
   for (const [seriesSlug, customPath] of Object.entries(getSeriesCustomPaths())) {
     getSeriesPosts(seriesSlug).forEach(post =>
-      params.push({ prefix: customPath, slug: post.slug })
+      params.push({ slug: customPath, postSlug: post.slug })
     );
   }
 
@@ -49,10 +49,10 @@ export const dynamicParams = false;
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ prefix: string; slug: string }>;
+  params: Promise<{ slug: string; postSlug: string }>;
 }): Promise<Metadata> {
-  const { slug: rawSlug } = await params;
-  const post = resolvePostFromParam(rawSlug);
+  const { postSlug: rawPostSlug } = await params;
+  const post = resolvePostFromParam(rawPostSlug);
 
   if (!post) {
     return { title: 'Post Not Found' };
@@ -94,10 +94,10 @@ export async function generateMetadata({
 export default async function PrefixPostPage({
   params,
 }: {
-  params: Promise<{ prefix: string; slug: string }>;
+  params: Promise<{ slug: string; postSlug: string }>;
 }) {
-  const { prefix, slug: rawSlug } = await params;
-  const slug = safeDecodeParam(rawSlug);
+  const { slug: prefix, postSlug: rawPostSlug } = await params;
+  const postSlug = safeDecodeParam(rawPostSlug);
 
   // Validate the prefix is a known custom path
   const basePath = getPostsBasePath();
@@ -109,7 +109,7 @@ export default async function PrefixPostPage({
     notFound();
   }
 
-  const post = resolvePostFromParam(rawSlug);
+  const post = resolvePostFromParam(rawPostSlug);
   if (!post) {
     notFound();
   }
@@ -120,10 +120,10 @@ export default async function PrefixPostPage({
     return <SimpleLayout post={post} />;
   }
 
-  const relatedPosts = getRelatedPosts(slug);
-  const { prev, next } = getAdjacentPosts(slug);
+  const relatedPosts = getRelatedPosts(postSlug);
+  const { prev, next } = getAdjacentPosts(postSlug);
   const slugRegistry = buildSlugRegistry();
-  const backlinks = getBacklinks(slug);
+  const backlinks = getBacklinks(postSlug);
   let seriesPosts: PostData[] = [];
   let seriesTitle: string | undefined;
 

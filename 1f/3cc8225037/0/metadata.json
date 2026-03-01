@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.4.8",
+  "checkpoint_id": "1f3cc8225037",
+  "session_id": "22db4cc7-3a8d-47f9-8aee-843343c96c31",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-01T22:28:24.971336Z",
+  "branch": "hutusi",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "content/subscribe.mdx",
+    "site.config.ts"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "588e821cfdbf",
+  "checkpoint_transcript_start": 62,
+  "transcript_lines_at_start": 62,
+  "token_usage": {
+    "input_tokens": 43,
+    "cache_creation_tokens": 33346,
+    "cache_read_tokens": 400875,
+    "output_tokens": 1912,
+    "api_call_count": 13
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-01T22:28:24.868441Z",
+    "agent_lines": 2,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "agent_percentage": 100
+  }
+}

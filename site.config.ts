@@ -150,7 +150,7 @@ export const siteConfig = {
     authors: {
       // Default author names applied when a post has no author in its frontmatter.
       // Falls back to series authors first, then to this list.
-      default: [] as string[],
+      default: ["John Hu"] as string[],
       showInHeader: true,   // Show author byline below the post title
       showAuthorCard: true, // Show author bio card at the end of the post
     },
@@ -227,6 +227,13 @@ export const siteConfig = {
     //     { image: "/images/authors/wechat-qr.jpg", description: "WeChat Official Account" },
     //   ],
     // },
+    "John Hu": {
+      bio: "Coder, Writer, Creator.",
+      avatar: "/images/avatar.jpg",
+      social: [
+        { image: "/images/wechat-qr.jpg", description: "Follow on WeChat" },
+      ],
+    },
   } as Record<string, {
     bio?: string;
     avatar?: string;  // Avatar image path served from public/

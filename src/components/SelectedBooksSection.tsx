@@ -46,7 +46,7 @@ export default function SelectedBooksSection({ books, maxItems = 4 }: SelectedBo
                 />
               </div>
               <div className="p-6 flex flex-col flex-1">
-                <span className="badge-accent mb-4 inline-block">
+                <span className="badge-accent self-start">
                   {book.chapterCount} {t('chapters_count')}
                 </span>
                 <h3 className="mb-3 font-serif text-xl font-bold text-heading group-hover:text-accent transition-colors line-clamp-2">
@@ -58,7 +58,7 @@ export default function SelectedBooksSection({ books, maxItems = 4 }: SelectedBo
                   </p>
                 )}
                 {book.excerpt && (
-                  <p className="text-muted font-serif italic leading-relaxed line-clamp-3 text-sm">
+                  <p className="text-muted font-serif italic leading-relaxed line-clamp-3 text-sm mb-4">
                     {book.excerpt}
                   </p>
                 )}

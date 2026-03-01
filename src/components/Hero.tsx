@@ -38,10 +38,10 @@ export default function Hero({ tagline, title, subtitle, postCount, seriesCount,
     featureNames?.[key] ? resolveLocaleValue(featureNames[key]!, language) : fallback;
 
   const stats = [
-    flowCount   ? { href: '#recent-flows',    count: flowCount,   label: label('flow',   'Flow')    } : null,
-    postCount   ? { href: '#featured-posts',  count: postCount,   label: label('posts',  'Posts')   } : null,
-    seriesCount ? { href: '#featured-series', count: seriesCount, label: label('series', 'Series')  } : null,
-    bookCount   ? { href: '#featured-books',  count: bookCount,   label: label('books',  'Books')   } : null,
+    flowCount   != null ? { href: '#recent-flows',    count: flowCount,   label: label('flow',   'Flow')    } : null,
+    postCount   != null ? { href: '#featured-posts',  count: postCount,   label: label('posts',  'Posts')   } : null,
+    seriesCount != null ? { href: '#featured-series', count: seriesCount, label: label('series', 'Series')  } : null,
+    bookCount   != null ? { href: '#featured-books',  count: bookCount,   label: label('books',  'Books')   } : null,
   ].filter((s): s is StatItem => s !== null);
 
   return (

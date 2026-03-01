@@ -19,7 +19,6 @@ export interface FeaturedPost {
 interface FeaturedStoriesSectionProps {
   allFeatured: FeaturedPost[];
   maxItems: number;
-  scrollThreshold: number;
 }
 
 export default function FeaturedStoriesSection({ allFeatured, maxItems }: FeaturedStoriesSectionProps) {
@@ -34,7 +33,7 @@ export default function FeaturedStoriesSection({ allFeatured, maxItems }: Featur
     setDisplayed(shuffle(allFeatured).slice(0, maxItems));
   }, [allFeatured, maxItems]);
 
-  if (allFeatured.length === 0) return null;
+  if (displayed.length === 0) return null;
 
   const [hero, ...secondary] = displayed;
 

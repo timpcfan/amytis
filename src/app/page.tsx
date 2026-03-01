@@ -146,7 +146,6 @@ export default function Home() {
             key="featured-posts"
             allFeatured={featuredItems}
             maxItems={section.maxItems ?? 4}
-            scrollThreshold={section.scrollThreshold ?? 1}
           />
         );
       case 'latest-posts':

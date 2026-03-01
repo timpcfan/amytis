@@ -17,7 +17,6 @@ export interface BookItem {
 interface SelectedBooksSectionProps {
   books: BookItem[];
   maxItems?: number;
-  scrollThreshold?: number;
 }
 
 export default function SelectedBooksSection({ books, maxItems = 4 }: SelectedBooksSectionProps) {

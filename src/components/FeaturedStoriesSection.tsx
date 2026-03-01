@@ -111,12 +111,6 @@ export default function FeaturedStoriesSection({ allFeatured, maxItems }: Featur
                   <h4 className="font-serif font-bold text-heading group-hover:text-accent transition-colors line-clamp-2 text-base leading-snug">
                     {post.title}
                   </h4>
-                  <span className="mt-auto pt-2 inline-flex items-center gap-1 text-xs font-mono text-muted/50 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200">
-                    Read
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </span>
                 </div>
                 {/* Cover image — flush to right edge, full card height */}
                 <div className="relative w-32 flex-shrink-0 overflow-hidden bg-muted/10">

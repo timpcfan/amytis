@@ -147,6 +147,13 @@ export const siteConfig = {
     showFuturePosts: false,
     includeDateInUrl: false,
     // trailingSlash is configured in next.config.ts (Next.js handles URL normalization)
+    authors: {
+      // Default author names applied when a post has no author in its frontmatter.
+      // Falls back to series authors first, then to this list.
+      default: [] as string[],
+      showInHeader: true,   // Show author byline below the post title
+      showAuthorCard: true, // Show author bio card at the end of the post
+    },
     archive: {
       showAuthors: true,
     },

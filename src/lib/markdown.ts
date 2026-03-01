@@ -180,7 +180,10 @@ function parseMarkdownFile(fullPath: string, slug: string, dateFromFileName?: st
       }
     }
     if (authors.length === 0) {
-      authors = ['Amytis'];
+      const defaultAuthors = siteConfig.posts?.authors?.default;
+      if (defaultAuthors && defaultAuthors.length > 0) {
+        authors = defaultAuthors;
+      }
     }
   }
 

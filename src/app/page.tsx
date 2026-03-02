@@ -1,4 +1,4 @@
-import { getAllPosts, getFeaturedSeries, getSeriesData, getFeaturedPosts, getFeaturedBooks, getRecentFlows } from '@/lib/markdown';
+import { getAllPosts, getAllSeries, getAllBooks, getAllFlows, getFeaturedSeries, getSeriesData, getFeaturedPosts, getFeaturedBooks, getRecentFlows } from '@/lib/markdown';
 import { siteConfig } from '../../site.config';
 import Hero from '@/components/Hero';
 import CuratedSeriesSection, { SeriesItem } from '@/components/CuratedSeriesSection';
@@ -46,16 +46,21 @@ export default function Home() {
   const has = (id: string) => sections.some(s => s.id === id);
 
   // Derive per-section maxItems upfront for data loading
+  const hasHero = has('hero');
   const recentFlowsMax = sections.find(s => s.id === 'recent-flows')?.maxItems ?? siteConfig.flows?.recentCount ?? 5;
   const latestPostsMax = sections.find(s => s.id === 'latest-posts')?.maxItems ?? siteConfig.pagination.posts;
 
-  // Load data only for sections that are both enabled on homepage and globally
+  // Load data only for sections that are both enabled on homepage and globally.
+  // Hero can optionally use full counts even when a section is disabled.
+  const allSeriesForCount = hasHero && features?.series?.enabled !== false ? getAllSeries() : {};
+  const allBooksForCount = hasHero && features?.books?.enabled !== false ? getAllBooks() : [];
+  const allFlowsForCount = hasHero && features?.flow?.enabled !== false ? getAllFlows() : [];
   const allSeries = has('featured-series') && features?.series?.enabled !== false ? getFeaturedSeries() : {};
   const featuredBooks = has('featured-books') && features?.books?.enabled !== false ? getFeaturedBooks() : [];
   const recentFlows = has('recent-flows') && features?.flow?.enabled !== false
     ? getRecentFlows(recentFlowsMax)
     : [];
-  const needsPosts = has('featured-posts') || has('latest-posts');
+  const needsPosts = has('featured-posts') || has('latest-posts') || hasHero;
   const allPosts = needsPosts && features?.posts?.enabled !== false ? getAllPosts() : [];
   const featuredPosts = has('featured-posts') && features?.posts?.enabled !== false ? getFeaturedPosts() : [];
 
@@ -161,6 +166,20 @@ export default function Home() {
           tagline={siteConfig.hero.tagline}
           title={siteConfig.hero.title}
           subtitle={siteConfig.hero.subtitle}
+          stats={{
+            posts: features?.posts?.enabled !== false ? allPosts.length : undefined,
+            series: features?.series?.enabled !== false ? Object.keys(allSeriesForCount).length : undefined,
+            books: features?.books?.enabled !== false ? allBooksForCount.length : undefined,
+            flows: features?.flow?.enabled !== false ? allFlowsForCount.length : undefined,
+          }}
+          latestPost={allPosts[0] ? {
+            slug: allPosts[0].slug,
+            title: allPosts[0].title,
+            excerpt: allPosts[0].excerpt,
+            date: allPosts[0].date,
+            readingTime: allPosts[0].readingTime,
+            category: allPosts[0].category,
+          } : undefined}
         />
       )}
 

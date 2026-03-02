@@ -1,125 +1,115 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageProvider';
 import { resolveLocaleValue } from '@/lib/i18n';
 
 type LocaleValue = string | Record<string, string>;
 
+type HeroStats = {
+  posts?: number;
+  series?: number;
+  books?: number;
+  flows?: number;
+};
+
+type LatestPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readingTime: string;
+  category: string;
+};
+
 interface HeroProps {
   tagline: LocaleValue;
   title: LocaleValue;
   subtitle: LocaleValue;
+  stats?: HeroStats;
+  latestPost?: LatestPost;
 }
 
-export default function Hero({ tagline, title, subtitle }: HeroProps) {
-  const { language } = useLanguage();
+export default function Hero({ tagline, title, subtitle, stats, latestPost }: HeroProps) {
+  const { language, t } = useLanguage();
   const resolvedTagline = resolveLocaleValue(tagline, language);
   const resolvedTitle = resolveLocaleValue(title, language);
   const resolvedSubtitle = resolveLocaleValue(subtitle, language);
-  const [isVisible, setIsVisible] = useState<boolean | null>(null);
-  const visibleRef = useRef(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('amytis-hero-visible');
-    const visible = saved !== 'false';
-    // Use requestAnimationFrame to avoid cascading render lint error
-    const rafId = requestAnimationFrame(() => {
-      setIsVisible(visible);
-      visibleRef.current = visible;
-    });
-    return () => cancelAnimationFrame(rafId);
-  }, []);
-
-  // Auto-collapse on scroll or navigation away
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setIsVisible(false);
-        visibleRef.current = false;
-        localStorage.setItem('amytis-hero-visible', 'false');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      // On unmount (navigation away), hide for next visit
-      if (visibleRef.current) {
-        localStorage.setItem('amytis-hero-visible', 'false');
-      }
-    };
-  }, [isVisible]);
-
-  const handleCollapse = () => {
-    setIsVisible(false);
-    visibleRef.current = false;
-    localStorage.setItem('amytis-hero-visible', 'false');
-  };
-
-  const handleExpand = () => {
-    setIsVisible(true);
-    visibleRef.current = true;
-    localStorage.setItem('amytis-hero-visible', 'true');
-  };
-
-  // Avoid layout shift on first render
-  if (isVisible === null) {
-    return <div className="min-h-[60vh]" />;
-  }
-
-  if (!isVisible) {
-    return (
-      <div className="py-10">
-        <button
-          onClick={handleExpand}
-          className="mx-auto flex items-center justify-center gap-4 group cursor-pointer"
-        >
-          <span className="h-px w-12 bg-muted/20 group-hover:bg-accent/40 transition-colors" />
-          <span className="text-xs font-sans font-bold uppercase tracking-[0.3em] text-muted/40 group-hover:text-accent/80 transition-colors">
-            {resolvedTagline}
-          </span>
-          <span className="h-px w-12 bg-muted/20 group-hover:bg-accent/40 transition-colors" />
-        </button>
-      </div>
-    );
-  }
+  const statItems = [
+    { key: 'posts', label: t('posts'), value: stats?.posts },
+    { key: 'series', label: t('series'), value: stats?.series },
+    { key: 'books', label: t('books'), value: stats?.books },
+    { key: 'flows', label: t('flow'), value: stats?.flows },
+  ].filter(item => typeof item.value === 'number') as { key: string; label: string; value: number }[];
 
   return (
-    <header className="relative py-24 md:py-40 flex flex-col items-center justify-center text-center max-w-6xl mx-auto min-h-[60vh] px-6">
-      <div className="mb-8 flex items-center justify-center animate-fade-in">
-         <span className="h-px w-12 bg-accent/30 mr-4"></span>
-         <span className="text-xs font-sans font-bold uppercase tracking-[0.3em] text-accent/80">{resolvedTagline}</span>
-         <span className="h-px w-12 bg-accent/30 ml-4"></span>
-      </div>
+    <header className="relative overflow-hidden">
+      <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-accent/10 via-accent/5 to-transparent pointer-events-none" />
+      <div className="absolute -top-10 -left-16 h-44 w-44 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
+      <div className="absolute -top-16 right-0 h-52 w-52 rounded-full bg-heading/5 blur-3xl pointer-events-none" />
 
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-heading leading-[1.1] tracking-tight mb-10 text-balance animate-slide-up">
-        {resolvedTitle}
-      </h1>
+      <div className="layout-main pt-8 md:pt-12 pb-10 md:pb-14">
+        <div className="relative rounded-3xl border border-muted/20 bg-background/90 backdrop-blur-sm px-6 py-8 md:px-10 md:py-12 shadow-sm">
+          <div className="mb-6 inline-flex items-center gap-3">
+            <span className="h-px w-8 bg-accent/35" />
+            <span className="text-[11px] font-sans font-bold uppercase tracking-[0.22em] text-accent/90">
+              {resolvedTagline}
+            </span>
+          </div>
 
-      <p className="text-muted font-sans text-sm md:text-base max-w-xl mx-auto leading-relaxed opacity-80 animate-slide-up animation-delay-200">
-        {resolvedSubtitle}
-      </p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-heading leading-[1.08] tracking-tight max-w-4xl text-balance">
+            {resolvedTitle}
+          </h1>
+          <p className="mt-6 max-w-3xl text-sm md:text-base text-muted leading-relaxed">
+            {resolvedSubtitle}
+          </p>
 
-      {/* Collapse button */}
-      <button
-        onClick={handleCollapse}
-        className="absolute top-4 right-4 text-muted/30 hover:text-accent transition-colors p-2"
-        aria-label="Collapse intro"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
-      </button>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link href="/posts" className="btn-primary rounded-full no-underline">
+              {t('all_posts')}
+            </Link>
+            <Link href="/archive" className="btn-secondary rounded-full no-underline">
+              {t('view_archive')}
+            </Link>
+          </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-muted/30">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-        </svg>
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
+            {statItems.map(item => (
+              <Link
+                key={item.key}
+                href={
+                  item.key === 'posts' ? '/posts'
+                    : item.key === 'series' ? '/series'
+                    : item.key === 'books' ? '/books'
+                    : '/flows'
+                }
+                className="rounded-2xl border border-muted/15 bg-muted/5 px-4 py-3 no-underline hover:border-accent/25 hover:bg-accent/5 transition-colors"
+              >
+                <p className="font-serif text-2xl text-heading">{item.value.toLocaleString()}</p>
+                <p className="text-xs uppercase tracking-wide text-muted">{item.label}</p>
+              </Link>
+            ))}
+          </div>
+
+          {latestPost && (
+            <Link
+              href={`/posts/${latestPost.slug}`}
+              className="mt-8 block rounded-2xl border border-muted/15 bg-muted/5 p-5 no-underline hover:border-accent/25 hover:bg-accent/5 transition-colors"
+            >
+              <div className="flex flex-wrap items-center gap-2 text-xs text-muted mb-2">
+                <span className="font-semibold text-accent">{t('latest_writing')}</span>
+                <span>•</span>
+                <span>{latestPost.date}</span>
+                <span>•</span>
+                <span>{latestPost.readingTime}</span>
+                <span>•</span>
+                <span>{latestPost.category}</span>
+              </div>
+              <h2 className="font-serif text-xl text-heading leading-snug mb-2">{latestPost.title}</h2>
+              <p className="text-sm text-muted leading-relaxed line-clamp-2">{latestPost.excerpt}</p>
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );

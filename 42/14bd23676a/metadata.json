@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.4.8",
+  "checkpoint_id": "4214bd23676a",
+  "strategy": "manual-commit",
+  "branch": "hutusi",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "content/books/sample-book/images/digital-garden.svg",
+    "content/books/sample-book/introduction.mdx",
+    "src/app/flows/[year]/[month]/[day]/page.tsx",
+    "src/app/notes/[slug]/page.tsx",
+    "src/layouts/PostLayout.tsx",
+    "src/layouts/SimpleLayout.tsx",
+    "src/lib/rehype-image-metadata.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/42/14bd23676a/0/metadata.json",
+      "transcript": "/42/14bd23676a/0/full.jsonl",
+      "context": "/42/14bd23676a/0/context.md",
+      "content_hash": "/42/14bd23676a/0/content_hash.txt",
+      "prompt": "/42/14bd23676a/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1656,
+    "cache_creation_tokens": 213506,
+    "cache_read_tokens": 2995406,
+    "output_tokens": 21836,
+    "api_call_count": 66
+  }
+}

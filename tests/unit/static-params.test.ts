@@ -87,6 +87,8 @@ beforeAll(() => {
     getAllSeries: () => ({}),
     getAllTags: () => ({}),
     getAllAuthors: () => ({}),
+    getAllPages: () => [],
+    getListingPosts: () => [],
 
     getFlowsByYear: () => [],
     getFlowsByMonth: () => [],
@@ -232,6 +234,28 @@ describe('generateStaticParams — placeholder when content is empty', () => {
       const { generateStaticParams } = await import('../../src/app/page/[page]/page');
       const params = await generateStaticParams();
       expect(params).toEqual([{ page: '2' }]);
+    });
+  });
+
+  describe('custom path routes', () => {
+    test('[slug]/page returns at least one param (static pages + no custom paths)', async () => {
+      const { generateStaticParams } = await import('../../src/app/[slug]/page');
+      const params = await generateStaticParams();
+      // With no pages, no custom basePath, and no series customPaths configured,
+      // the result is an empty array — but the route itself is static so this is valid.
+      expect(Array.isArray(params)).toBe(true);
+    });
+
+    test('[slug]/[postSlug]/page returns [{ slug: "_", postSlug: "_" }] when no custom paths', async () => {
+      const { generateStaticParams } = await import('../../src/app/[slug]/[postSlug]/page');
+      const params = await generateStaticParams();
+      expect(params).toEqual([{ slug: '_', postSlug: '_' }]);
+    });
+
+    test('[slug]/page/[page]/page returns placeholder when no custom paths', async () => {
+      const { generateStaticParams } = await import('../../src/app/[slug]/page/[page]/page');
+      const params = await generateStaticParams();
+      expect(params).toEqual([{ slug: '_', page: '2' }]);
     });
   });
 

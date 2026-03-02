@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.4.8",
+  "checkpoint_id": "3a95216c2adb",
+  "strategy": "manual-commit",
+  "branch": "hutusi",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "src/app/page.tsx",
+    "src/components/CoverImage.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/3a/95216c2adb/0/metadata.json",
+      "transcript": "/3a/95216c2adb/0/full.jsonl",
+      "context": "/3a/95216c2adb/0/context.md",
+      "content_hash": "/3a/95216c2adb/0/content_hash.txt",
+      "prompt": "/3a/95216c2adb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1140,
+    "cache_creation_tokens": 147473,
+    "cache_read_tokens": 1098952,
+    "output_tokens": 14226,
+    "api_call_count": 15
+  }
+}

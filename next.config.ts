@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   // asset directories (slug/images/) and avoids 403 errors on trailing slash
   trailingSlash: true,
   output: "export",
+  basePath: "/amytis",
   images: {
     loader: "custom",
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],

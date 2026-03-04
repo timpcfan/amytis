@@ -16,15 +16,15 @@ export interface NavItem {
 
 // Defined up-front so footer.connect can reference these URLs without duplication
 const social = {
-  github: "https://github.com/hutusi/amytis",
-  twitter: "https://twitter.com/hutusi",
-  email: "mailto:huziyong@gmail.com",
+  github: "https://github.com/timpcfan",
+  twitter: "https://twitter.com/timpcfan",
+  email: "mailto:lztsmail@gmail.com",
 };
 
 export const siteConfig = {
 
   // ── Site identity ─────────────────────────────────────────────────────────
-  title: { en: "Amytis", zh: "Amytis" },
+  title: { en: "TrystanLei", zh: "子霆的数字花园" },
   logo: {
     // Path to navbar logo image served from public/ (leave empty for the default built-in icon)
     // Accepts SVG, PNG, etc. — e.g. "/logo.svg" or "/images/my-logo.png"
@@ -32,10 +32,10 @@ export const siteConfig = {
     // Path to favicon served from public/ (defaults to /icon.svg)
     favicon: "/icon.svg",
   },
-  description: { en: "Amytis — an elegant open-source framework for building your personal digital garden.", zh: "Amytis — 优雅的开源数字花园框架。" },
+  description: { en: "TrystanLei's digital garden — notes on AI, engineering, and life.", zh: "子霆的数字花园：记录 AI、工程与生活思考。" },
   baseUrl: "https://example.com", // Replace with your actual domain
   ogImage: "/og-image.png", // Default OG/social preview image — place a 1200×630 PNG at public/og-image.png
-  footerText: { en: `© ${new Date().getFullYear()} Amytis. All rights reserved.`, zh: `© ${new Date().getFullYear()} Amytis. 保留所有权利。` },
+  footerText: { en: `© ${new Date().getFullYear()} TrystanLei. All rights reserved.`, zh: `© ${new Date().getFullYear()} TrystanLei. 保留所有权利。` },
 
   // ── i18n ──────────────────────────────────────────────────────────────────
   i18n: {
@@ -80,7 +80,7 @@ export const siteConfig = {
     builtWith: {
       show: true,
       url: "https://github.com/hutusi/amytis",
-      text: { en: "Built with Amytis", zh: "基于 Amytis 构建" },
+      text: { en: "Built with Amytis and OpenClaw", zh: "Built with Amytis and OpenClaw" },
     },
   },
 
@@ -124,9 +124,9 @@ export const siteConfig = {
 
   // ── Homepage ──────────────────────────────────────────────────────────────
   hero: {
-    tagline: { en: "Open Source Digital Garden", zh: "开源数字花园框架" },
-    title: { en: "A home for ideas to grow, link, and evolve.", zh: "让想法生长、关联、演化的地方。" },
-    subtitle: { en: "An elegant, open-source framework for cultivating personal knowledge — from raw daily flows to refined articles, curated series, and structured books.", zh: "优雅的开源知识培育框架——从每日随笔到精炼文章，从系列合集到结构化书籍，层层深化。" },
+    tagline: { en: "TrystanLei · Personal Knowledge Base", zh: "子霆 · 个人知识花园" },
+    title: { en: "Build once, think deeply, evolve continuously.", zh: "把点滴沉淀成体系，把思考变成作品。" },
+    subtitle: { en: "I write about AI, software engineering, and practical life systems — from daily notes to long-form thinking.", zh: "这里持续记录我在 AI、软件工程与生活系统上的实践：从日常随记，到长文沉淀。" },
   },
   homepage: {
     sections: [
@@ -155,7 +155,7 @@ export const siteConfig = {
     authors: {
       // Default author names applied when a post has no author in its frontmatter.
       // Falls back to series authors first, then to this list.
-      default: ["John Hu"] as string[],
+      default: ["TrystanLei"] as string[],
       showInHeader: true,   // Show author byline below the post title
       showAuthorCard: true, // Show author bio card at the end of the post
     },
@@ -235,8 +235,8 @@ export const siteConfig = {
     //     { image: "/images/authors/wechat-qr.jpg", description: "WeChat Official Account" },
     //   ],
     // },
-    "John Hu": {
-      bio: "Coder, Writer, Creator.",
+    "TrystanLei": {
+      bio: "AI Engineer at Huawei · Writer · Builder.",
       avatar: "/images/avatar.jpg",
       social: [
         { image: "/images/wechat-qr.jpg", description: "Follow on WeChat" },

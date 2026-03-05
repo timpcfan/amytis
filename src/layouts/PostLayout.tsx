@@ -54,7 +54,7 @@ export default function PostLayout({ post, relatedPosts, seriesPosts, seriesTitl
         )}
 
         <article className="min-w-0 max-w-3xl mx-auto">
-          <header className="mb-16 border-b border-muted/10 pb-8">
+          <header className="mb-10 md:mb-16 border-b border-muted/10 pb-6 md:pb-8">
             {post.draft && (
               <div className="mb-4">
                 <span className="text-xs font-bold text-red-500 bg-red-100 dark:bg-red-900/30 px-2 py-1 rounded tracking-widest inline-block">
@@ -62,7 +62,7 @@ export default function PostLayout({ post, relatedPosts, seriesPosts, seriesTitl
                 </span>
               </div>
             )}
-            <div className="flex items-center gap-3 text-xs font-sans text-muted mb-6">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-sans text-muted mb-4 md:mb-6">
               <span className="uppercase tracking-widest font-semibold text-accent">
                 {post.category}
               </span>
@@ -80,12 +80,12 @@ export default function PostLayout({ post, relatedPosts, seriesPosts, seriesTitl
               )}
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-serif font-bold text-heading leading-tight mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-heading leading-tight mb-3 md:mb-4">
               {post.title}
             </h1>
 
             {post.subtitle && (
-              <p className="text-xl md:text-2xl font-serif italic text-muted leading-snug mb-6">
+              <p className="text-lg sm:text-xl md:text-2xl font-serif italic text-muted leading-snug mb-5 md:mb-6">
                 {post.subtitle}
               </p>
             )}

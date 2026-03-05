@@ -12,8 +12,8 @@ export default function Footer() {
   
   return (
     <footer className="bg-muted/5 border-t border-muted/10 mt-auto">
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-10 lg:mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4 group no-underline">
@@ -41,8 +41,8 @@ export default function Footer() {
           
           {/* Navigation */}
           <div>
-            <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-muted/80 mb-6">{t('explore')}</h4>
-            <ul className="space-y-3 text-sm">
+            <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-muted/80 mb-3 sm:mb-6">{t('explore')}</h4>
+            <ul className="space-y-2 sm:space-y-3 text-sm">
               {[...(siteConfig.footer?.explore ?? [])].sort((a, b) => a.weight - b.weight).map((item) => {
                 const key = item.name.toLowerCase() as TranslationKey;
                 const translated = t(key);
@@ -60,8 +60,8 @@ export default function Footer() {
 
           {/* Connect */}
           <div>
-            <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-muted/80 mb-6">{t('connect')}</h4>
-            <ul className="space-y-3 text-sm">
+            <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-muted/80 mb-3 sm:mb-6">{t('connect')}</h4>
+            <ul className="space-y-2 sm:space-y-3 text-sm">
               {[...(siteConfig.footer?.connect ?? [])].sort((a, b) => a.weight - b.weight).map((item) => {
                 const isExternal = item.url.startsWith('http');
                 const key = item.name.toLowerCase() as TranslationKey;
@@ -87,7 +87,7 @@ export default function Footer() {
         </div>
         
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-muted/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted">
+        <div className="pt-5 sm:pt-8 border-t border-muted/10 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 text-xs text-muted">
           <span>{resolveLocaleValue(siteConfig.footerText, language)}</span>
           <div className="flex items-center gap-6">
              <LanguageSwitch variant="text" />

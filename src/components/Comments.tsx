@@ -16,6 +16,7 @@ type WalineGlobal = {
     lang?: string;
     pageSize?: number;
     dark?: string | boolean;
+    pageview?: boolean;
   }) => WalineClientInstance | null;
 };
 
@@ -124,6 +125,7 @@ export default function Comments({ slug, postUrl }: { slug: string; postUrl?: st
           lang: walineLang,
           pageSize: waline.pageSize,
           dark: 'html.dark',
+          pageview: true,
         });
       })
       .catch(() => {

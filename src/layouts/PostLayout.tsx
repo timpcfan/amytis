@@ -70,6 +70,14 @@ export default function PostLayout({ post, relatedPosts, seriesPosts, seriesTitl
               <time className="font-mono" data-pagefind-meta="date[content]">{post.date}</time>
               <span className="w-1 h-1 rounded-full bg-muted/30" />
               <span className="font-mono">{post.readingTime}</span>
+              {siteConfig.comments.provider === 'waline' && siteConfig.comments.waline.serverURL && (
+                <>
+                  <span className="w-1 h-1 rounded-full bg-muted/30" />
+                  <span className="font-mono">
+                    {t('page_views')}: <span className="waline-pageview-count" data-path={`${getPostUrl(post)}/`}>-</span>
+                  </span>
+                </>
+              )}
             </div>
 
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-heading leading-tight mb-4">

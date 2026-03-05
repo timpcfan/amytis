@@ -217,12 +217,11 @@ export const siteConfig = {
 
   // ── Comments ──────────────────────────────────────────────────────────────
   comments: {
-    provider: null, // 'giscus' | 'disqus' | null
-    giscus: {
-      repo: 'your-username/your-repo', // username/repo
-      repoId: '',
-      category: 'Announcements',
-      categoryId: '',
+    provider: null, // 'waline' | 'disqus' | null
+    waline: {
+      serverURL: process.env.NEXT_PUBLIC_WALINE_SERVER_URL || '', // e.g. https://your-waline-server.vercel.app
+      lang: '', // Optional override: e.g. 'en' or 'zh-CN'
+      pageSize: 10,
     },
     disqus: {
       shortname: '',

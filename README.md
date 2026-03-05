@@ -56,7 +56,7 @@ Each stage builds on the previous one, so your garden can evolve naturally.
   - Multilingual reading time estimate (supports Latin and CJK).
 - **Integrations:**
   - Analytics: Umami, Plausible, or Google Analytics.
-  - Comments: Giscus (GitHub Discussions) or Disqus.
+  - Comments: Waline or Disqus.
   - Internationalization: multi-language support (en, zh) with localized `site.config.ts`.
 - **Content CLI Tools:** Create posts, series, and import from PDFs or image folders.
 - **Modern Stack:** Next.js 16, React 19, Tailwind CSS v4, TypeScript 5, Bun.

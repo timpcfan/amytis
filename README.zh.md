@@ -49,7 +49,7 @@ Amytis 围绕一条从粗糙到精炼的知识路径构建：
   - 支持 Latin/CJK 的多语言阅读时长估算
 - **集成能力**：
   - 统计：Umami / Plausible / Google Analytics
-  - 评论：Giscus / Disqus
+  - 评论：Waline / Disqus
   - i18n：`site.config.ts` 中配置多语言（en / zh）
 
 ## 设计理念

@@ -212,12 +212,11 @@ export const siteConfig = {
 
   // ── Comments ──────────────────────────────────────────────────────────────
   comments: {
-    provider: 'giscus', // 'giscus' | 'disqus' | null
-    giscus: {
-      repo: 'hutusi/amytis', // username/repo
-      repoId: 'R_kgDOQ1YSwA',
-      category: 'Announcements',
-      categoryId: 'DIC_kwDOQ1YSwM4C2NmL',
+    provider: 'waline', // 'waline' | 'disqus' | null
+    waline: {
+      serverURL: process.env.NEXT_PUBLIC_WALINE_SERVER_URL || '', // e.g. https://your-waline-server.vercel.app
+      lang: '', // Optional override: e.g. 'en' or 'zh-CN'
+      pageSize: 10,
     },
     disqus: {
       shortname: '',

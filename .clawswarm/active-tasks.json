@@ -18,8 +18,15 @@
         "progress_interval_min": 5,
         "timeout_min": 60,
         "max_retries": 3,
-        "cron": {}
-      }
+        "cron": {
+          "monitor": "791ebdce-0d6d-4fd7-a88b-daac853bb955",
+          "progress": "a88e838a-7ef8-4728-868a-a75e870836d7",
+          "cleanup": "e2c32bf5-ff8c-477d-b47a-e96472ab2b0c"
+        },
+        "subagent_session": "agent:main:subagent:1456412d-1dbf-430f-9363-80c12a8110f8",
+        "subagent_run": "4dfb1e1e-b242-48f7-bf44-d4b6e2f25c5f"
+      },
+      "updated_at": "2026-03-06T01:24:42.657230+08:00"
     }
   ]
 }

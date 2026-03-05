@@ -3,6 +3,13 @@ import { getAuthorSlug } from '@/lib/markdown';
 import { siteConfig } from '../../site.config';
 import { t } from '@/lib/i18n';
 
+const resolveImageSrc = (src?: string) => {
+  if (!src) return src;
+  if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('data:')) return src;
+  if (src.startsWith('/')) return `/amytis${src}`;
+  return src;
+};
+
 export default function AuthorCard({ authors }: { authors: string[] }) {
   if (!authors || authors.length === 0) return null;
 
@@ -22,7 +29,7 @@ export default function AuthorCard({ authors }: { authors: string[] }) {
             <div className="flex items-start gap-4 flex-1 min-w-0">
               {profile?.avatar ? (
                 <img
-                  src={profile.avatar}
+                  src={resolveImageSrc(profile.avatar)}
                   alt={author}
                   className="w-14 h-14 rounded-full object-cover flex-shrink-0 ring-2 ring-muted/20"
                 />
@@ -56,7 +63,7 @@ export default function AuthorCard({ authors }: { authors: string[] }) {
                 {profile.social!.map((item, index) => (
                   <figure key={index} className="flex flex-col items-center gap-1.5">
                     <img
-                      src={item.image}
+                      src={resolveImageSrc(item.image)}
                       alt={item.description}
                       className="w-[72px] h-[72px] object-contain rounded-lg bg-white p-0.5"
                     />

@@ -236,9 +236,9 @@ export const siteConfig = {
     // },
     "TrystanLei": {
       bio: "AI Engineer at Huawei · Writer · Builder.",
-      avatar: "/images/avatar.jpg",
+      avatar: "https://img.timpcfan.site/blog/2026/03/file_21---6fe38abc-031a-4330-a1fe-0e352af2ce5f.jpg",
       social: [
-        { image: "/images/wechat-qr.jpg", description: "Follow on WeChat" },
+        { image: "https://img.timpcfan.site/blog/2026/03/file_20---3748b429-0491-4a0b-ab50-b71bb9b5d645.jpg", description: "Follow on WeChat" },
       ],
     },
   } as Record<string, {

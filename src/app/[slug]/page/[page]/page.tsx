@@ -67,7 +67,7 @@ export async function generateMetadata({
     };
   }
 
-  return { title: 'Not Found' };
+  return { title: '内容不存在' };
 }
 
 export default async function PrefixPageRoute({

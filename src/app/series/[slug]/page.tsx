@@ -30,10 +30,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (posts.length > 0) {
         return {
             title: `${slug} - ${t('series')} | ${resolveLocale(siteConfig.title)}`,
-            description: `${posts.length} ${t('posts').toLowerCase()} - ${slug}.`,
+            description: `系列“${slug}”共包含 ${posts.length} 篇${t('posts')}。`,
         }
     }
-    return { title: 'Series Not Found' };
+    return { title: '系列不存在' };
   }
 
   const ogImage = seriesData.coverImage && !seriesData.coverImage.startsWith('text:') && !seriesData.coverImage.startsWith('./')

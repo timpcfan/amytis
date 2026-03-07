@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const book = getBookData(decodeURIComponent(slug));
 
   if (!book) {
-    return { title: 'Book Not Found' };
+    return { title: '书籍不存在' };
   }
 
   const ogImage = book.coverImage && !book.coverImage.startsWith('text:') && !book.coverImage.startsWith('./')

@@ -5,7 +5,6 @@ import { siteConfig } from '../../site.config';
 import { useLanguage } from '@/components/LanguageProvider';
 import { resolveLocaleValue } from '@/lib/i18n';
 import { TranslationKey } from '@/i18n/translations';
-import LanguageSwitch from './LanguageSwitch';
 
 export default function Footer() {
   const { t, language } = useLanguage();
@@ -90,8 +89,6 @@ export default function Footer() {
         <div className="pt-5 sm:pt-8 border-t border-muted/10 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 text-xs text-muted">
           <span>{resolveLocaleValue(siteConfig.footerText, language)}</span>
           <div className="flex items-center gap-6">
-             <LanguageSwitch variant="text" />
-             <span className="opacity-20">|</span>
              <Link href="/privacy" className="hover:text-foreground transition-colors no-underline">{t('privacy')}</Link>
              {siteConfig.footer?.builtWith?.show && (() => {
                const cfg = siteConfig.footer.builtWith;

@@ -34,14 +34,14 @@ export async function generateMetadata({ params }: { params: Promise<{ author: s
 
   if (!resolvedAuthor) {
     return {
-      title: `Author Not Found | ${resolveLocale(siteConfig.title)}`,
+      title: `作者不存在 | ${resolveLocale(siteConfig.title)}`,
     };
   }
 
   const posts = getPostsByAuthor(resolvedAuthor);
   return {
     title: `${resolvedAuthor} | ${resolveLocale(siteConfig.title)}`,
-    description: `${posts.length} ${t('posts').toLowerCase()} ${t('written_by').toLowerCase()} ${resolvedAuthor}.`,
+    description: `${resolvedAuthor} 共发布 ${posts.length} 篇${t('posts')}。`,
   };
 }
 

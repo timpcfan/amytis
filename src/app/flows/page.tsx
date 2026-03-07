@@ -10,7 +10,7 @@ const PAGE_SIZE = siteConfig.pagination.flows;
 
 export const metadata: Metadata = {
   title: `${t('flow')} | ${resolveLocale(siteConfig.title)}`,
-  description: 'Daily notes and quick thoughts.',
+  description: '每日随笔与即时想法。',
 };
 
 export default function FlowsPage() {

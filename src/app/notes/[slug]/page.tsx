@@ -20,7 +20,7 @@ export const dynamicParams = false;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const note = getNoteBySlug(slug);
-  if (!note) return { title: 'Not Found' };
+  if (!note) return { title: '内容不存在' };
   return {
     title: `${note.title} | ${resolveLocale(siteConfig.title)}`,
     description: note.excerpt,
@@ -126,4 +126,3 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
     </div>
   );
 }
-

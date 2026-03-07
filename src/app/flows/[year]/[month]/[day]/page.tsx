@@ -24,7 +24,7 @@ export const dynamicParams = false;
 export async function generateMetadata({ params }: { params: Promise<{ year: string; month: string; day: string }> }): Promise<Metadata> {
   const { year, month, day } = await params;
   const flow = getFlowBySlug(`${year}/${month}/${day}`);
-  if (!flow) return { title: 'Not Found' };
+  if (!flow) return { title: '内容不存在' };
   return {
     title: `${flow.title} | ${resolveLocale(siteConfig.title)}`,
     description: flow.excerpt,

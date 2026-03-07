@@ -30,7 +30,7 @@ export async function GET() {
     <title><![CDATA[${resolveLocale(siteConfig.title)}]]></title>
     <link>${baseUrl}</link>
     <description><![CDATA[${resolveLocale(siteConfig.description)}]]></description>
-    <language>en</language>
+    <language>zh-CN</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml" />
     ${rssItemsXml}

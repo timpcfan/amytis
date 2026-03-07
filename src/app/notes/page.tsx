@@ -10,7 +10,7 @@ const PAGE_SIZE = siteConfig.pagination.notes ?? 20;
 
 export const metadata: Metadata = {
   title: `${t('notes')} | ${resolveLocale(siteConfig.title)}`,
-  description: 'Knowledge base notes.',
+  description: '知识库笔记。',
 };
 
 export default function NotesPage() {

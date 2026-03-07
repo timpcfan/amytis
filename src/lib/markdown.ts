@@ -74,7 +74,6 @@ export interface PostData {
   readingTime: string;
   content: string;
   headings: Heading[];
-  contentLocales?: Record<string, { content: string; title?: string; excerpt?: string; headings?: Heading[] }>;
 }
 
 export function calculateReadingTime(content: string): string {
@@ -95,7 +94,7 @@ export function calculateReadingTime(content: string): string {
 
   const estimatedMinutes = (latinWordCount / wordsPerMinute) + (hanCharCount / hanCharsPerMinute);
   const minutes = Math.max(1, Math.ceil(estimatedMinutes));
-  return `${minutes} min read`;
+  return `${minutes} 分钟阅读`;
 }
 
 export function generateExcerpt(content: string): string {
@@ -476,45 +475,6 @@ export function getPostBySlug(slug: string): PostData | null {
   return post;
 }
 
-/**
- * Load the content and frontmatter of a locale variant file, e.g. about.zh.mdx.
- * Returns null when the file does not exist or cannot be parsed.
- */
-function loadLocaleContent(slug: string, locale: string): { content: string; title?: string; excerpt?: string; headings?: Heading[] } | null {
-  for (const ext of ['.mdx', '.md']) {
-    const filePath = path.join(pagesDirectory, `${slug}.${locale}${ext}`);
-    if (fs.existsSync(filePath)) {
-      try {
-        const { data, content } = matter(fs.readFileSync(filePath, 'utf8'));
-        const body = content.replace(/^\s*#\s+[^\n]+/, '').trim();
-        return {
-          content: body,
-          title: typeof data.title === 'string' ? data.title : undefined,
-          excerpt: typeof data.excerpt === 'string' ? data.excerpt : undefined,
-          headings: getHeadings(body),
-        };
-      } catch {
-        return null;
-      }
-    }
-  }
-  return null;
-}
-
-/**
- * Collect contentLocales for all non-default locales that have a variant file.
- */
-function attachContentLocales(page: PostData, slug: string): PostData {
-  const defaultLocale = siteConfig.i18n.defaultLocale;
-  const otherLocales = siteConfig.i18n.locales.filter(l => l !== defaultLocale);
-  const contentLocales: NonNullable<PostData['contentLocales']> = {};
-  for (const locale of otherLocales) {
-    const localeData = loadLocaleContent(slug, locale);
-    if (localeData !== null) contentLocales[locale] = localeData;
-  }
-  return Object.keys(contentLocales).length > 0 ? { ...page, contentLocales } : page;
-}
-
 export function getPageBySlug(slug: string): PostData | null {
   try {
     let fullPath = path.join(pagesDirectory, `${slug}.mdx`);
@@ -522,7 +482,7 @@ export function getPageBySlug(slug: string): PostData | null {
       fullPath = path.join(pagesDirectory, `${slug}.md`);
     }
     if (!fs.existsSync(fullPath)) return null;
-    return attachContentLocales(parseMarkdownFile(fullPath, slug), slug);
+    return parseMarkdownFile(fullPath, slug);
   } catch {
     return null;
   }
@@ -545,7 +505,7 @@ export function getAllPages(): PostData[] {
     .map(item => {
       const slug = item.name.replace(/\.mdx?$/, '');
       const fullPath = path.join(pagesDirectory, item.name);
-      return attachContentLocales(parseMarkdownFile(fullPath, slug), slug);
+      return parseMarkdownFile(fullPath, slug);
     });
 }
 

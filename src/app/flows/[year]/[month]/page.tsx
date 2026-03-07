@@ -25,7 +25,7 @@ export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ year: string; month: string }> }): Promise<Metadata> {
   const { year, month } = await params;
-  const monthLabel = new Date(parseInt(year), parseInt(month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const monthLabel = new Date(parseInt(year), parseInt(month) - 1).toLocaleDateString('zh-CN', { month: 'long', year: 'numeric' });
   return {
     title: `${tWith('flows_in_month', { month: monthLabel })} | ${resolveLocale(siteConfig.title)}`,
   };
@@ -40,7 +40,7 @@ export default async function FlowsMonthPage({ params }: { params: Promise<{ yea
   const allFlows = getAllFlows();
   const entryDates = allFlows.map(f => f.date);
   const tags = getFlowTags();
-  const monthLabel = new Date(parseInt(year), parseInt(month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const monthLabel = new Date(parseInt(year), parseInt(month) - 1).toLocaleDateString('zh-CN', { month: 'long', year: 'numeric' });
 
   const breadcrumb = (
     <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-muted">

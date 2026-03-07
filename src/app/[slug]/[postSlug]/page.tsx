@@ -55,7 +55,7 @@ export async function generateMetadata({
   const post = resolvePostFromParam(rawPostSlug);
 
   if (!post) {
-    return { title: 'Post Not Found' };
+    return { title: '文章不存在' };
   }
 
   const ogImage =
@@ -97,7 +97,6 @@ export default async function PrefixPostPage({
   params: Promise<{ slug: string; postSlug: string }>;
 }) {
   const { slug: prefix, postSlug: rawPostSlug } = await params;
-  const postSlug = safeDecodeParam(rawPostSlug);
 
   // Validate the prefix is a known custom path
   const basePath = getPostsBasePath();

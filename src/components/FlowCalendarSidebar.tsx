@@ -13,7 +13,7 @@ interface FlowCalendarSidebarProps {
   breadcrumb?: ReactNode;
 }
 
-const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
 
 export default function FlowCalendarSidebar({ entryDates, currentDate, tags, selectedTag, onTagSelect, breadcrumb }: FlowCalendarSidebarProps) {
   const { t } = useLanguage();
@@ -30,7 +30,7 @@ export default function FlowCalendarSidebar({ entryDates, currentDate, tags, sel
   const firstDay = new Date(viewYear, viewMonth, 1).getDay();
   const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
 
-  const monthLabel = new Date(viewYear, viewMonth).toLocaleDateString('en-US', {
+  const monthLabel = new Date(viewYear, viewMonth).toLocaleDateString('zh-CN', {
     month: 'long',
     year: 'numeric',
   });
@@ -85,7 +85,7 @@ export default function FlowCalendarSidebar({ entryDates, currentDate, tags, sel
           <button
             onClick={prevMonth}
             className="p-1 text-muted hover:text-accent transition-colors"
-            aria-label="Previous month"
+            aria-label="上个月"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
           </button>
@@ -93,7 +93,7 @@ export default function FlowCalendarSidebar({ entryDates, currentDate, tags, sel
           <button
             onClick={nextMonth}
             className="p-1 text-muted hover:text-accent transition-colors"
-            aria-label="Next month"
+            aria-label="下个月"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
           </button>

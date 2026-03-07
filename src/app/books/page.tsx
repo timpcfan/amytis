@@ -8,7 +8,7 @@ import PageHeader from '@/components/PageHeader';
 
 export const metadata: Metadata = {
   title: `${t('books')} | ${resolveLocale(siteConfig.title)}`,
-  description: 'Structured long-form books and guides.',
+  description: '结构化整理的长篇书籍与指南。',
 };
 
 export default function BooksPage() {

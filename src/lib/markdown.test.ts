@@ -35,37 +35,37 @@ describe("markdown utils", () => {
   });
 
   describe("calculateReadingTime", () => {
-    test("short content returns 1 min read", () => {
+    test("short content returns 1 分钟阅读", () => {
       const text = "Hello world, this is a short post.";
-      expect(calculateReadingTime(text)).toBe("1 min read");
+      expect(calculateReadingTime(text)).toBe("1 分钟阅读");
     });
 
-    test("600 words returns 3 min read", () => {
+    test("600 words returns 3 分钟阅读", () => {
       const words = Array(600).fill("word").join(" ");
-      expect(calculateReadingTime(words)).toBe("3 min read");
+      expect(calculateReadingTime(words)).toBe("3 分钟阅读");
     });
 
-    test("empty content returns 1 min read", () => {
-      expect(calculateReadingTime("")).toBe("1 min read");
+    test("empty content returns 1 分钟阅读", () => {
+      expect(calculateReadingTime("")).toBe("1 分钟阅读");
     });
 
     test("strips markdown formatting before counting", () => {
       // 400 actual words surrounded by markdown syntax
       const words = Array(400).fill("**word**").join(" ");
       const result = calculateReadingTime(words);
-      expect(result).toBe("2 min read");
+      expect(result).toBe("2 分钟阅读");
     });
 
     test("counts Chinese characters for reading time", () => {
       const han = "中".repeat(600);
-      expect(calculateReadingTime(han)).toBe("2 min read");
+      expect(calculateReadingTime(han)).toBe("2 分钟阅读");
     });
 
     test("combines Latin words and Chinese characters", () => {
       const latinWords = Array(200).fill("word").join(" ");
       const han = "中".repeat(300);
       const mixed = `${latinWords} ${han}`;
-      expect(calculateReadingTime(mixed)).toBe("2 min read");
+      expect(calculateReadingTime(mixed)).toBe("2 分钟阅读");
     });
   });
 

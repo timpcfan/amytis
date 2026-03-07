@@ -1,4 +1,4 @@
-import { getPageBySlug, getAllPages, getAllPosts, getListingPosts, getSeriesData, getSeriesPosts, getSeriesAuthors, getAuthorSlug } from '@/lib/markdown';
+import { getPageBySlug, getAllPages, getListingPosts, getSeriesData, getSeriesPosts, getSeriesAuthors, getAuthorSlug } from '@/lib/markdown';
 import { notFound } from 'next/navigation';
 import PostLayout from '@/layouts/PostLayout';
 import SimpleLayout from '@/layouts/SimpleLayout';
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (slug === basePath && basePath !== 'posts') {
     return {
       title: `${t('posts')} | ${resolveLocale(siteConfig.title)}`,
-      description: 'Browse the complete archive of articles.',
+      description: '浏览全部文章归档。',
     };
   }
 
@@ -68,7 +68,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const page = getPageBySlug(slug);
   if (!page) {
-    return { title: 'Page Not Found' };
+    return { title: '页面不存在' };
   }
 
   return {

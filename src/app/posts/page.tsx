@@ -12,7 +12,7 @@ const PAGE_SIZE = siteConfig.pagination.posts;
 
 export const metadata: Metadata = {
   title: `${t('posts')} | ${resolveLocale(siteConfig.title)}`,
-  description: 'Browse the complete archive of articles.',
+  description: '浏览全部文章归档。',
 };
 
 export default function AllPostsPage() {

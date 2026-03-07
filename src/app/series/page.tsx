@@ -8,7 +8,7 @@ import PageHeader from '@/components/PageHeader';
 
 export const metadata: Metadata = {
   title: `${t('series')} | ${resolveLocale(siteConfig.title)}`,
-  description: 'Curated collections of articles and thoughts.',
+  description: '整理后的文章与主题系列。',
 };
 
 export default function SeriesIndexPage() {

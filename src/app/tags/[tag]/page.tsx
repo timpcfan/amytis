@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ tag: stri
 
   return {
     title: `#${decodedTag} | ${resolveLocale(siteConfig.title)}`,
-    description: `${total} posts tagged with "${decodedTag}".`,
+    description: `标签“${decodedTag}”下共有 ${total} 篇内容。`,
   };
 }
 

@@ -43,9 +43,9 @@ export const siteConfig = {
     // The language switcher will be hidden and the defaultLocale is always used.
     // When disabled, all locale-aware fields (title, description, hero, etc.)
     // accept plain strings instead of { en: '...', zh: '...' } objects.
-    enabled: true,
-    defaultLocale: 'en',
-    locales: ['en', 'zh'],
+    enabled: false,
+    defaultLocale: 'zh',
+    locales: ['zh'],
   },
 
   // ── Navigation ────────────────────────────────────────────────────────────
@@ -80,7 +80,7 @@ export const siteConfig = {
     builtWith: {
       show: true,
       url: "https://github.com/hutusi/amytis",
-      text: { en: "Built with Amytis and OpenClaw", zh: "Built with Amytis and OpenClaw" },
+      text: { en: "Built with Amytis and OpenClaw", zh: "由 Amytis 和 OpenClaw 驱动" },
     },
   },
 

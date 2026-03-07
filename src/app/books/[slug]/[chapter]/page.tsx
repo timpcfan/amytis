@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const chapter = getBookChapter(slug, chapterSlug);
 
   if (!book || !chapter) {
-    return { title: 'Chapter Not Found' };
+    return { title: '章节不存在' };
   }
 
   return {

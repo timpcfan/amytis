@@ -6,8 +6,8 @@ import PageHeader from '@/components/PageHeader';
 import { getPostUrl } from '@/lib/urls';
 
 export const metadata = {
-  title: `Archive | ${resolveLocale(siteConfig.title)}`,
-  description: 'A complete list of all notes and thoughts.',
+  title: `${t('archive')} | ${resolveLocale(siteConfig.title)}`,
+  description: '所有文章与记录的完整归档。',
 };
 
 // Use month number as key for reliable sorting across all locales

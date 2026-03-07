@@ -15,7 +15,6 @@ interface PostSidebarProps {
   posts?: PostData[];
   currentSlug: string;
   headings: Heading[];
-  localeHeadings?: Record<string, Heading[]>;
   shareUrl?: string;
   shareTitle?: string;
 }
@@ -33,9 +32,9 @@ function getVisibleIndices(total: number, current: number): (number | 'ellipsis'
   return result;
 }
 
-export default function PostSidebar({ seriesSlug, seriesTitle, posts, currentSlug, headings, localeHeadings, shareUrl, shareTitle }: PostSidebarProps) {
-  const { t, language } = useLanguage();
-  const activeHeadings = localeHeadings?.[language] ?? headings;
+export default function PostSidebar({ seriesSlug, seriesTitle, posts, currentSlug, headings, shareUrl, shareTitle }: PostSidebarProps) {
+  const { t } = useLanguage();
+  const activeHeadings = headings;
   const hasSeries = !!(seriesSlug && posts && posts.length > 0);
   const currentIndex = hasSeries ? posts!.findIndex(p => p.slug === currentSlug) : -1;
   // Chronological sort (ascending date) — used for both progress counter and isPast styling
